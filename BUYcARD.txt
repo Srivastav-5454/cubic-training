@@ -1,0 +1,313 @@
+import {useState} from "react";
+import Select from "react-select"
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import "../styles/BuyCard.css";
+
+const options=[
+    {value:"student", label: "student"},
+    {value:"regular", label: "regular"}
+]
+
+const BuyCard = (props) => {
+    const [select, setselect]=useState([]);
+    const {purchaseCard}= props;
+
+const buyCardSubmit = async (e) => {
+    e.preventDefault();
+    purchaseCard(true);
+}
+
+
+
+        return (
+            <div className="Home-page">
+                <Navbar/>
+                <div className='Sidebarcontainer'>
+                    <Sidebar/>
+                    <div className='homebodycontainer'>
+
+                            <div>
+                                <h2 className="para">Buy a Transit Card</h2>
+                                <p className="para1">Choose a Card that fits your commute needs</p>
+                            </div>
+                            <div className="typestobuycard">
+                                <div className='stumetrocard'>
+                                    <div>
+                                        <h3 className='para1'>Student Metro Card</h3>
+                                        <p className='para1'>Perfect for daily commuters</p>
+                                    </div>
+                                    <div>
+                                        <p className='para1' >Card Price : $1</p>
+                                        <p className='para1' >Min Wallet : $50</p>
+                                        <p className='para1' >Trip cost : $4</p>
+                                        <p className='para1' >Card Validate : 60days</p>
+                                    </div>
+                                    <div>
+                                        <h4 className='para1' >Total price : $51</h4>
+                                    </div>
+                                </div>
+                                <div className='stumetrocard'>
+                                    <div>
+                                        <h3 className='para1' >regular Metro Card</h3>
+                                        <p className='para1'>Perfect for daily commuters</p>
+                                    </div>
+                                    <div>
+                                        <p className='para1' >Card Price : $1</p>
+                                        <p className='para1' >Min Wallet : $50</p>
+                                        <p className='para1' >Trip cost : $4</p>
+                                        <p className='para1'>Card Validate : 60days</p>
+                                    </div>
+                                    <div>
+                                        <h3 className='para1' >Total price : $51</h3>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2>Choose your card</h2>
+                            <form onSubmit={buyCardSubmit} className='buyCardForm'>
+
+                                <div>
+                                    <label className='labelbuysection'>Card Type  :  </label>
+                                    <Select ismulti className='my-select'  options={options} onChange={setselect} />
+
+
+                                </div>
+                                <div>
+                                    <label className='labelbuysection' >Location    : </label>
+                                    <input className='inputboxbuysection' />
+                                </div>
+                                <div>
+                                    <label className='labelbuysection' >Bank         : </label>
+                                    <input className='inputboxbuysection' />
+                                </div>
+
+                                <button type="submit" className='btnpurchase'>
+                                    Purchase
+                                </button>
+                            </form>
+                           {/*<div className="purchasecontainer">
+                               <h3>Complete Purchase</h3>
+                               <div className='purchaseselectcontainer'>
+                                   <div>
+                                       <p className='purchasepara1' >Selected Card</p>
+                                       <p className='purchasepara2'>Basic Pass</p>
+                                   </div>
+                                   <div>
+                                       <p className='purchasepara1'>Total</p>
+                                       <p className='purchasepara2'>$50.00</p>
+                                   </div>
+                               </div>
+                               <button className='btnpurchase2'>
+                                   Purchase Card
+                               </button>
+                           </div>*/}
+                        </div>
+                    </div>
+                </div>
+
+        );
+
+}
+
+export default BuyCard;
+.............................................................................
+*{
+    margin: 0;
+    padding: 0;
+}
+.Home-page{
+    height: auto;
+    min-height: 100vh;
+    width: 100vw;
+}
+.Sidebarcontainer{
+    display: flex;
+}
+.homebodycontainer{
+    width: calc(100vw - 250px);
+    height: auto;
+    min-height: 100vh;
+    margin: 2px;
+
+}
+
+.stumetrocard{
+    margin-top: 18px;
+    width: 43%;
+    height: 200px;
+    max-width: 95vw;
+    background: linear-gradient(135deg, #0b8bd5, #0677c0);
+    border-radius: 18px;
+    padding: 26px;
+    color: #eaf6ff;
+    box-shadow: 0 18px 40px rgba(16, 24, 40, 0.2);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+
+}
+.typestobuycard{
+    display: flex;
+    justify-content: space-between;
+}
+.buyCardForm {
+    margin-top: 18px;
+    width: 45%;
+    height: 200px;
+    max-width: 95vw;
+    background-color: whitesmoke;
+    border: 2px black solid;
+    border-radius: 18px;
+    padding: 26px;
+    color: #000000;
+    box-shadow: 0 18px 40px rgba(16, 24, 40, 0.2);
+
+}
+.inputboxbuysection{
+    width: 55%;
+    height: 32px;
+    border: 2px solid #d0d5dd;
+    border-radius: 5px;
+    padding: 0 14px;
+    margin: 7px;
+    outline: none;
+    font-size: 15px;
+}
+.labelbuysection{
+    white-space: pre;
+    font-size: 14px;
+    margin: 7px;
+    color: #101828;
+    font-weight: 600;
+}
+.my-select{
+    width: 60%;
+    display: inline-block;
+    border: 2px solid #d0d5dd;
+    border-radius: 7px;
+}
+.btnpurchase{
+    background-color: #588ad5;
+    width: 140px;
+    height: 40px;
+    color: #ffffff;
+    border-radius: 5px;
+    border: 1px black solid;
+}
+.purchasecontainer{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #ffffff;
+    width: 70%;
+    height: 170px;
+    padding: 7px 32px 18px 30px;
+    box-shadow: 0 18px 50px rgba(0, 0, 0, 0.35);
+    border-radius: 7px;
+    margin-top: 20px;
+}
+.purchaseselectcontainer{
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+.purchasepara1{
+    margin-bottom: 0;
+    margin-top: 0;
+    color: grey;
+    font-size: 15px;
+}
+.purchasepara2{
+    margin-bottom: 0;
+    margin-top: 0;
+    color: black;
+    font-size: 20px;
+    font-weight: bold;
+}
+.btnpurchase2{
+    width: 100%;
+    height: 45px;
+    border-radius: 7px;
+    color: #ffffff;
+    background: linear-gradient(135deg, #0c5fb8, #0aa6d8);
+}
+..........................................
+SIDE BAR.............
+
+import React, { Component } from "react";
+import { NavLink } from "react-router-dom";
+import '../styles/Sidebar.css';
+
+class Sidebar extends Component {
+    render() {
+        return (
+            <aside className="sidebar">
+
+                <nav className="sidebar-nav">
+                    <NavLink
+                        to="/home"
+                        className={({ isActive }) =>
+                            isActive ? "side-link active" : "side-link"
+                        }
+                    >
+                        Home
+                    </NavLink>
+
+                    <NavLink
+                        to="/MyCards"
+                        className={({ isActive }) =>
+                            isActive ? "side-link active" : "side-link"
+                        }
+                    >
+                        MyCards
+                    </NavLink>
+
+                    <NavLink
+                        to="/BuyCard"
+                        className={({ isActive }) =>
+                            isActive ? "side-link active" : "side-link"
+                        }
+                    >
+                        BuyCard
+                    </NavLink>
+
+                    <NavLink
+                        to="/TapGate"
+                        className={({ isActive }) =>
+                            isActive ? "side-link active" : "side-link"
+                        }
+                    >
+                        TapGate
+                    </NavLink>
+                </nav>
+            </aside>
+        );
+    }
+}
+
+export default Sidebar;
+................................................
+NAV BAR......................
+
+import '../styles/Navbar.css';
+
+const Navbar = (props) => {
+    return (
+        <div className="topbar">
+            <div className="topbar-left">
+                <div className="topbar-icon">🚆</div>
+                <div>
+                    <div className="topbar-title">Metro Transit</div>
+                    <div className="topbar-subtitle">
+                        Fare Collection System
+                    </div>
+                </div>
+            </div>
+
+            <button className="logout-btn" >Logout</button>
+        </div>
+    )
+
+}
+export default Navbar;
