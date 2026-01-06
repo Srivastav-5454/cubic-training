@@ -1,0 +1,656 @@
+import { useState, useEffect, useRef } from "react";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import "../styles/BuyCard.css";
+import { useNavigate } from "react-router-dom";
+
+
+const BuyCard = (props) => {
+  const { purchaseCard } = props;
+
+  /* -------------------- STATE -------------------- */
+  const [selectedCard, setSelectedCard] = useState("student");
+  const [purchasedCards, setPurchasedCards] = useState(["student"]);
+// example: user already owns student card
+
+  const [showModal, setShowModal] = useState(false);
+  const [step, setStep] = useState(0);
+   const navigate = useNavigate();
+
+  const [formData, setFormData] = useState({
+    cardType: "",
+    location: "",
+    bank: "",
+  });
+
+  const [formError, setFormError] = useState("");
+  const formRef = useRef(null);
+ 
+
+
+  /* -------------------- HANDLERS -------------------- */
+
+ const handleBuyNow = (cardType) => {
+  if (purchasedCards.includes(cardType)) {
+    setAlreadyPurchased(cardType);
+    return;
+  }
+
+  setSelectedCard(cardType);
+  setFormData((prev) => ({ ...prev, cardType }));
+
+  setTimeout(() => {
+    formRef.current?.scrollIntoView({
+      behavior: "smooth",
+      block: "center",
+    });
+  }, 100);
+};
+const [alreadyPurchased, setAlreadyPurchased] = useState(null);
+
+
+  const buyCardSubmit = (e) => {
+    e.preventDefault();
+
+    if (!formData.cardType || !formData.location || !formData.bank) {
+      setFormError("Please fill in all payment details");
+      return;
+    }
+
+    setFormError("");
+    setShowModal(true);
+    setStep(0);
+  };
+
+  const resetForm = () => {
+    setFormData({
+      cardType: "",
+      location: "",
+      bank: "",
+    });
+    setSelectedCard("student");
+  };
+
+  const closeModal = () => {
+    if (step === 3) {
+      setShowModal(false);
+      setStep(0);
+      resetForm();
+    }
+  };
+
+  /* -------------------- EFFECTS -------------------- */
+
+  useEffect(() => {
+    if (!showModal) return;
+
+    const timers = [
+      setTimeout(() => setStep(1), 1200),
+      setTimeout(() => setStep(2), 2500),
+      setTimeout(() => setStep(3), 3800),
+    ];
+
+    return () => timers.forEach(clearTimeout);
+  }, [showModal]);
+
+  /* -------------------- UI -------------------- */
+
+  return (
+    <div className="Home-page buycard-page">
+      <Navbar />
+
+      <div className="Sidebarcontainer">
+        <Sidebar />
+
+        <div className="homebodycontainer">
+         <div className="page-header">
+          <h2 className="page-title">Buy Your Metro Pass</h2>
+          <p className="page-subtitle">
+            Smart, fast and secure way to travel every day
+          </p>
+        </div>
+
+
+          {/* -------- CARDS -------- */}
+          <div className="typestobuycard">
+            {/* STUDENT */}
+            <div
+              className={`metro-card student ${
+                selectedCard === "student" ? "active" : ""
+              }`}
+              onClick={() => setSelectedCard("student")}
+            >
+              <h3>Student Metro Card</h3>
+              <p>Perfect for daily commuters</p>
+
+              <ul>
+                <li>Card Price : $1</li>
+                <li>Min Wallet : $50</li>
+                <li>Trip cost : $4</li>
+                <li>Card Validity : 60 days</li>
+              </ul>
+
+              <h4>Total price : $51</h4>
+              <button
+                className="buy-now"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleBuyNow("student");
+                }}
+              >
+                Buy Now
+              </button>
+            </div>
+
+            {/* REGULAR */}
+            <div
+              className={`metro-card regular ${
+                selectedCard === "regular" ? "active" : ""
+              }`}
+              onClick={() => setSelectedCard("regular")}
+            >
+              <h3>Regular Metro Card</h3>
+              <p>Perfect for daily commuters</p>
+
+              <ul>
+                <li>Card Price : $1</li>
+                <li>Min Wallet : $50</li>
+                <li>Trip cost : $4</li>
+                <li>Card Validity : 60 days</li>
+              </ul>
+
+              <h4>Total price : $51</h4>
+              <button
+                className="buy-now"
+                onClick={(e) => {
+                  e.stopPropagation();
+                  handleBuyNow("regular");
+                }}
+              >
+                Buy Now
+              </button>
+            </div>
+          </div>
+
+          {/* -------- FORM -------- */}
+          <form
+            ref={formRef}
+            className="buyCardForm"
+            onSubmit={buyCardSubmit}
+          >
+            <h3 className="purchase-title">Complete Purchase</h3>
+
+            <label>Card Type</label>
+            <select
+              className="inputboxbuysection"
+              value={formData.cardType}
+              onChange={(e) => {
+                const value = e.target.value;
+
+                if (purchasedCards.includes(value)) {
+                  setAlreadyPurchased(value);
+                  return;
+                }
+
+                setFormData({ ...formData, cardType: value });
+              }}
+            >
+
+              <option value="">Select Card Type</option>
+              <option value="student">Student</option>
+              <option value="regular">Regular</option>
+            </select>
+
+            <label>Location</label>
+            <input
+              className="inputboxbuysection"
+              placeholder="Enter location"
+              value={formData.location}
+              onChange={(e) =>
+                setFormData({ ...formData, location: e.target.value })
+              }
+            />
+
+            <label>Bank</label>
+            <input
+              className="inputboxbuysection"
+              placeholder="Enter bank name"
+              value={formData.bank}
+              onChange={(e) =>
+                setFormData({ ...formData, bank: e.target.value })
+              }
+            />
+
+            {formError && <p className="form-error">{formError}</p>}
+
+            <button type="submit" className="btnpurchase">
+              Complete Purchase
+            </button>
+
+            <div className="payment-bg"></div>
+          </form>
+        </div>
+      </div>
+
+      {/* -------- MODAL (MOVED OUT CORRECTLY) -------- */}
+      {showModal && (
+        <div className="payment-modal" onClick={closeModal}>
+          <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+            {step < 3 && (
+              <>
+                <div className="loader-ring"></div>
+                <p className="status-text">
+                  {step === 0 && "Fetching details"}
+                  {step === 1 && "Checking amount"}
+                  {step === 2 && "Checking bank details"}
+                </p>
+
+                {step < 3 && (
+                  <span className="dots">
+                    <span>💵💵</span>
+                    <span>💳💳</span>
+                    <span>🏦🏦</span>
+                  </span>
+                )}
+
+              </>
+            )}
+
+            {step === 3 && (
+              <>
+                <div className="success-check">✔</div>
+                <p className="success-text">PURCHASE SUCCESSFUL!</p>
+                <p className="tap-text">Tap anywhere to close</p>
+              </>
+            )}
+          </div>
+        </div>
+      )}
+      {/* -------- Checking if already Purchased!-------- */}
+      {alreadyPurchased && (
+          <div
+            className="payment-modal"
+            onClick={() => setAlreadyPurchased(null)}
+          >
+            <div
+              className="modal-card"
+              onClick={(e) => e.stopPropagation()}
+            >
+              <div className="info-icon">ℹ️</div>
+
+              <p className="success-text">
+                You have already purchased the{" "}
+                <strong>{alreadyPurchased}</strong> card.
+              </p>
+
+              <p className="tap-text">
+                Visit <strong>MyCards</strong> page to see the details of your card.
+              </p>
+
+              <button
+                className="btnpurchase"
+                onClick={() => navigate("/MyCards")}
+              >
+                Go to MyCards
+              </button>
+            </div>
+          </div>
+      )}
+
+
+    </div>
+  );
+};
+.................css..............
+/* PAGE BACKGROUND */
+.Home-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.buycard-page {
+    background-image: url("../assets/pageBG.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+.homebodycontainer {
+    flex: 1;
+    /* KEY LINE */
+    padding: 30px;
+
+    overflow-y: auto;
+}
+
+
+/* HEADERS */
+/* HEADER WRAPPER */
+.page-header {
+    margin-bottom: 28px;
+}
+
+/* TITLE */
+.page-title {
+    font-size: 34px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+    margin: 0;
+    color: #171758;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+/* SUBTITLE */
+.page-subtitle {
+    margin-top: 6px;
+    font-size: 15px;
+    color: #0a0a0a;
+    font-weight: 700;
+    max-width: 520px;
+    line-height: 1.6;
+    font-family: "Inter", system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+
+/* CARD LAYOUT */
+.typestobuycard {
+    display: flex;
+    justify-content: center;
+    /* CENTER CARDS */
+    gap: 32px;
+    margin-bottom: 40px;
+}
+
+
+/* CARD BASE */
+.metro-card {
+    width: 340px;
+    padding: 24px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s ease;
+}
+
+.metro-card ul {
+    margin: 14px 0;
+    padding-left: 18px;
+}
+
+.metro-card:hover {
+    transform: translateY(-6px);
+}
+
+.metro-card.active {
+    outline: 3px solid #ffd700;
+}
+
+/* STUDENT CARD BG */
+.student {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.55)),
+        url("../assets/studentPASS.png");
+    background-size: cover;
+    background-position: center;
+}
+
+/* REGULAR CARD BG */
+.regular {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.55),
+            rgba(0, 0, 0, 0.55)),
+        url("../assets/regularPASS.png");
+    background-size: cover;
+    background-position: center;
+}
+
+/* BUY BUTTON */
+.buy-now {
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* FORM */
+.buyCardForm {
+    width: 420px;
+    padding: 26px;
+    border-radius: 18px;
+    background-color: white;
+    box-shadow: 0 18px 40px rgba(16, 24, 40, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.inputboxbuysection {
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1px solid #d0d5dd;
+}
+
+.btnpurchase {
+    margin-top: 14px;
+    height: 42px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #0b4fa3, #0aa6d8);
+    color: white;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.Sidebarcontainer {
+    display: flex;
+    flex-direction: row;
+    /* IMPORTANT */
+    width: 100%;
+    min-height: calc(100vh - 72px);
+    flex: 1;
+    /* below navbar */
+}
+
+/* PURCHASE CARD POSITIONING */
+.buyCardForm {
+    position: sticky;
+    top: 120px;
+    /* stays visible while scrolling */
+    margin: 0 auto;
+    /* center horizontally */
+    background: linear-gradient(180deg,
+            #ffffff,
+            #f5f7fb);
+    border: 1px solid #e4e7ec;
+}
+
+/* PURCHASE TITLE */
+.purchase-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #0b1f44;
+}
+
+/* PAYMENT LOGOS */
+.payment-logos {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 14px;
+}
+
+.payment-logos span {
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 12px;
+    font-weight: 700;
+    background: linear-gradient(135deg, #0c5fb8, #0aa6d8);
+    color: white;
+}
+
+/* INPUT FOCUS EFFECT */
+.inputboxbuysection:focus {
+    border-color: #0aa6d8;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(10, 166, 216, 0.2);
+}
+
+/* PURCHASE BUTTON UPGRADE */
+.btnpurchase {
+    margin-top: 4px;
+    height: 42px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #0b4fa3, #0aa6d8);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* animations for purchase card */
+/* MODAL BACKDROP */
+.payment-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: grid;
+    place-items: center;
+    z-index: 9999;
+}
+
+/* MODAL CARD */
+.modal-card {
+    width: 320px;
+    height: 260px;
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+/* LOADING RING */
+.loader-ring {
+    width: 64px;
+    height: 64px;
+    border: 6px solid #e4e7ec;
+    border-top-color: #0aa6d8;
+    border-radius: 50%;
+    margin: 20px auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* STATUS TEXT */
+.status-text {
+    font-size: 15px;
+    color: #344054;
+    margin-top: 12px;
+}
+
+/* SUCCESS */
+.success-check {
+    font-size: 56px;
+    color: #12b76a;
+    margin-top: 24px;
+    animation: pop 0.4s ease-out;
+}
+
+@keyframes pop {
+    0% {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+
+    100% {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-text {
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+/* TRAIN ANIMATION */
+/* CLICK TO CLOSE TEXT */
+.tap-text {
+    font-size: 13px;
+    color: #667085;
+    margin-top: 8px;
+}
+
+/* DOT LOADING ANIMATION */
+.dots span {
+    display: inline-block;
+    font-size: 18px;
+    animation: blink 1.4s infinite both;
+}
+
+.dots span:nth-child(1) {
+    animation-delay: 0s;
+}
+
+.dots span:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.dots span:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes blink {
+    0% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+
+    20% {
+        opacity: 1;
+        transform: translateY(-3px);
+    }
+
+    40% {
+        opacity: 0;
+        transform: translateY(0);
+    }
+
+    100% {
+        opacity: 0;
+    }
+}
+
+.form-error {
+    color: #d92d20;
+    font-size: 14px;
+    margin: 6px 0;
+    text-align: center;
+}
+
+.info-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
+
+.modal-card .btnpurchase {
+    margin-top: 14px;
+    width: 100%;
+}
+
+export default BuyCard;
