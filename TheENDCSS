@@ -1,0 +1,246 @@
+/* ================= PAGE BACKGROUND ================= */
+.Home-page {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+.buycard-page {
+    background-image: url("../assets/pageBG.png");
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* ================= LAYOUT ================= */
+.Sidebarcontainer {
+    display: flex;
+    width: 100%;
+    min-height: calc(100vh - 72px);
+    flex: 1;
+}
+
+.homebodycontainer {
+    flex: 1;
+    padding: 30px;
+    overflow-y: auto;
+}
+
+/* ================= HEADER ================= */
+.page-header {
+    margin-bottom: 28px;
+}
+
+.page-title {
+    font-size: 34px;
+    font-weight: 800;
+    margin: 0;
+    color: #171758;
+    font-family: "Inter", system-ui, sans-serif;
+}
+
+.page-subtitle {
+    margin-top: 6px;
+    font-size: 15px;
+    font-weight: 700;
+    color: #0a0a0a;
+    max-width: 520px;
+}
+
+/* ================= CARD LAYOUT ================= */
+.typestobuycard {
+    display: flex;
+    justify-content: center;
+    gap: 32px;
+    margin-bottom: 40px;
+}
+
+.metro-card {
+    width: 340px;
+    padding: 24px;
+    border-radius: 20px;
+    color: white;
+    cursor: pointer;
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.35);
+    transition: all 0.3s ease;
+}
+
+.metro-card ul {
+    margin: 14px 0;
+    padding-left: 18px;
+}
+
+.metro-card:hover {
+    transform: translateY(-6px);
+}
+
+.metro-card.active {
+    outline: 3px solid #ffd700;
+}
+
+/* ================= CARD BACKGROUNDS ================= */
+.student {
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+        url("../assets/studentPASS.png");
+    background-size: cover;
+    background-position: center;
+}
+
+.regular {
+    background-image:
+        linear-gradient(rgba(0, 0, 0, 0.55), rgba(0, 0, 0, 0.55)),
+        url("../assets/regularPASS.png");
+    background-size: cover;
+    background-position: center;
+}
+
+/* ================= BUTTONS ================= */
+.buy-now {
+    width: 100%;
+    height: 38px;
+    border-radius: 8px;
+    border: none;
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+.btnpurchase {
+    margin-top: 10px;
+    height: 42px;
+    border-radius: 10px;
+    border: none;
+    background: linear-gradient(135deg, #0b4fa3, #0aa6d8);
+    color: white;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+/* ================= FORM ================= */
+.buyCardForm {
+    width: 420px;
+    padding: 26px;
+    border-radius: 18px;
+    background: linear-gradient(180deg, #ffffff, #f5f7fb);
+    box-shadow: 0 18px 40px rgba(16, 24, 40, 0.25);
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    position: sticky;
+    top: 120px;
+    margin: 0 auto;
+    border: 1px solid #e4e7ec;
+}
+
+.purchase-title {
+    text-align: center;
+    font-size: 20px;
+    font-weight: 700;
+    color: #0b1f44;
+}
+
+.inputboxbuysection {
+    height: 38px;
+    padding: 0 14px;
+    border-radius: 8px;
+    border: 1px solid #d0d5dd;
+}
+
+.inputboxbuysection:focus {
+    border-color: #0aa6d8;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(10, 166, 216, 0.2);
+}
+
+.form-error {
+    color: #d92d20;
+    font-size: 14px;
+    text-align: center;
+}
+
+/* ================= MODAL ================= */
+.payment-modal {
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+    display: grid;
+    place-items: center;
+    z-index: 9999;
+}
+
+.modal-card {
+    width: 320px;
+    height: 260px;
+    background: white;
+    border-radius: 20px;
+    padding: 24px;
+    text-align: center;
+    position: relative;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+.modal-card .btnpurchase {
+    width: 100%;
+}
+
+/* ================= LOADER ================= */
+.loader-ring {
+    width: 64px;
+    height: 64px;
+    border: 6px solid #e4e7ec;
+    border-top-color: #0aa6d8;
+    border-radius: 50%;
+    margin: 20px auto;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.status-text {
+    font-size: 15px;
+    color: #344054;
+    margin-top: 12px;
+}
+
+/* ================= SUCCESS ================= */
+.success-check {
+    font-size: 56px;
+    color: #12b76a;
+    margin-top: 24px;
+    animation: pop 0.4s ease-out;
+}
+
+@keyframes pop {
+    from {
+        transform: scale(0.6);
+        opacity: 0;
+    }
+    to {
+        transform: scale(1);
+        opacity: 1;
+    }
+}
+
+.success-text {
+    font-weight: 700;
+    font-size: 16px;
+    margin-top: 10px;
+}
+
+.tap-text {
+    font-size: 13px;
+    color: #667085;
+    margin-top: 8px;
+}
+
+.info-icon {
+    font-size: 48px;
+    margin-bottom: 10px;
+}
