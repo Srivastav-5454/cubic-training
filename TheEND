@@ -1,0 +1,326 @@
+import React, { Component, createRef } from "react";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import "../styles/BuyCard.css";
+
+class BuyCard extends Component {
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      selectedCard: "student",
+
+      cardDetails: {
+        active: false,
+        cardType: null,
+        balance: null,
+      },
+
+      formData: {
+        cardType: "",
+        location: "",
+        bank: "",
+      },
+
+      formError: "",
+
+      // 🔥 YOUR UI STATES
+      showModal: false,
+      step: 0,
+      alreadyPurchased: null,
+    };
+
+    this.formRef = createRef();
+    this.timers = [];
+  }
+
+  /* -------------------- API (UNCHANGED) -------------------- */
+  componentDidMount() {
+    this.fetchMyCardDetails();
+  }
+
+  fetchMyCardDetails = async () => {
+    const token = localStorage.getItem("jwtToken");
+
+    try {
+      const response = await fetch(
+        "http://localhost:8081/api/transit/my-cards",
+        {
+          headers: { Authorization: `Bearer ${token}` },
+        }
+      );
+
+      if (response.status === 404) {
+        this.setState({
+          cardDetails: { active: false, cardType: null, balance: null },
+        });
+        return;
+      }
+
+      if (!response.ok) throw new Error("Failed to fetch card details");
+
+      const data = await response.json();
+
+      this.setState({
+        cardDetails: {
+          active: data.cardActive,
+          cardType: data.cardType,
+          balance: data.balance,
+        },
+      });
+    } catch (error) {
+      this.setState({ formError: error.message });
+    }
+  };
+
+  /* -------------------- UI HANDLERS -------------------- */
+  handleBuyNow = (type) => {
+    if (this.state.cardDetails.active) {
+      this.setState({ alreadyPurchased: type });
+      return;
+    }
+
+    this.setState({
+      selectedCard: type,
+      formData: { ...this.state.formData, cardType: type },
+    });
+
+    setTimeout(() => {
+      this.formRef.current?.scrollIntoView({
+        behavior: "smooth",
+        block: "center",
+      });
+    }, 100);
+  };
+
+  handleSubmit = async (e) => {
+    e.preventDefault();
+
+    const { cardType, location, bank } = this.state.formData;
+    const { active } = this.state.cardDetails;
+
+    if (!cardType || !location || !bank) {
+      this.setState({ formError: "Please fill all payment details" });
+      return;
+    }
+
+    if (active) {
+      this.setState({ alreadyPurchased: cardType });
+      return;
+    }
+
+    this.setState({ formError: "", showModal: true, step: 0 });
+
+    // 🔥 YOUR STEP ANIMATION
+    this.timers = [
+      setTimeout(() => this.setState({ step: 1 }), 1200),
+      setTimeout(() => this.setState({ step: 2 }), 2500),
+      setTimeout(() => this.setState({ step: 3 }), 3800),
+    ];
+
+    const token = localStorage.getItem("jwtToken");
+
+    try {
+      const response = await fetch(
+        "http://localhost:8081/api/transit/buy",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            cardType: cardType.toUpperCase(),
+            balance: 100,
+          }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Purchase failed");
+
+      const data = await response.json();
+
+      this.setState({
+        cardDetails: {
+          active: data.cardActive,
+          cardType: data.cardType,
+          balance: data.balance,
+        },
+      });
+    } catch (error) {
+      this.setState({ formError: error.message });
+    }
+  };
+
+  closeModal = () => {
+    if (this.state.step === 3) {
+      this.timers.forEach(clearTimeout);
+      this.setState({
+        showModal: false,
+        step: 0,
+        formData: { cardType: "", location: "", bank: "" },
+        selectedCard: "student",
+      });
+    }
+  };
+
+  /* -------------------- RENDER -------------------- */
+  render() {
+    const {
+      selectedCard,
+      formData,
+      formError,
+      showModal,
+      step,
+      alreadyPurchased,
+    } = this.state;
+
+    return (
+      <div className="Home-page buycard-page">
+        <Navbar />
+
+        <div className="Sidebarcontainer">
+          <Sidebar />
+
+          <div className="homebodycontainer">
+            <div className="page-header">
+              <h2 className="page-title">Buy Your Metro Pass</h2>
+              <p className="page-subtitle">
+                Smart, fast and secure way to travel every day
+              </p>
+            </div>
+
+            {/* CARDS */}
+            <div className="typestobuycard">
+              {["student", "regular"].map((type) => (
+                <div
+                  key={type}
+                  className={`metro-card ${type} ${
+                    selectedCard === type ? "active" : ""
+                  }`}
+                  onClick={() => this.setState({ selectedCard: type })}
+                >
+                  <h3>{type === "student" ? "Student" : "Regular"} Metro Card</h3>
+                  <p>Perfect for daily commuters</p>
+
+                  <ul>
+                    <li>Card Price : $1</li>
+                    <li>Min Wallet : $50</li>
+                    <li>Trip cost : $4</li>
+                    <li>Card Validity : 60 days</li>
+                  </ul>
+
+                  <h4>Total price : $51</h4>
+                  <button
+                    className="buy-now"
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      this.handleBuyNow(type);
+                    }}
+                  >
+                    Buy Now
+                  </button>
+                </div>
+              ))}
+            </div>
+
+            {/* FORM */}
+            <form
+              ref={this.formRef}
+              className="buyCardForm"
+              onSubmit={this.handleSubmit}
+            >
+              <h3 className="purchase-title">Complete Purchase</h3>
+
+              <label>Card Type</label>
+              <select
+                className="inputboxbuysection"
+                value={formData.cardType}
+                onChange={(e) =>
+                  this.setState({
+                    formData: { ...formData, cardType: e.target.value },
+                  })
+                }
+              >
+                <option value="">Select Card Type</option>
+                <option value="student">Student</option>
+                <option value="regular">Regular</option>
+              </select>
+
+              <label>Location</label>
+              <input
+                className="inputboxbuysection"
+                value={formData.location}
+                onChange={(e) =>
+                  this.setState({
+                    formData: { ...formData, location: e.target.value },
+                  })
+                }
+              />
+
+              <label>Bank</label>
+              <input
+                className="inputboxbuysection"
+                value={formData.bank}
+                onChange={(e) =>
+                  this.setState({
+                    formData: { ...formData, bank: e.target.value },
+                  })
+                }
+              />
+
+              {formError && <p className="form-error">{formError}</p>}
+
+              <button className="btnpurchase">Complete Purchase</button>
+            </form>
+          </div>
+        </div>
+
+        {/* 🔥 PURCHASE MODAL */}
+        {showModal && (
+          <div className="payment-modal" onClick={this.closeModal}>
+            <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+              {step < 3 ? (
+                <>
+                  <div className="loader-ring"></div>
+                  <p className="status-text">
+                    {["Fetching details", "Checking amount", "Checking bank details"][step]}
+                  </p>
+                </>
+              ) : (
+                <>
+                  <div className="success-check">✔</div>
+                  <p className="success-text">PURCHASE SUCCESSFUL!</p>
+                  <p className="tap-text">Tap anywhere to close</p>
+                </>
+              )}
+            </div>
+          </div>
+        )}
+
+        {/* 🔥 ALREADY PURCHASED MODAL */}
+        {alreadyPurchased && (
+          <div
+            className="payment-modal"
+            onClick={() => this.setState({ alreadyPurchased: null })}
+          >
+            <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+              <div className="info-icon">ℹ️</div>
+              <p className="success-text">
+                You already purchased the <strong>{alreadyPurchased}</strong> card
+              </p>
+              <button
+                className="btnpurchase"
+                onClick={() => (window.location.href = "/mycards")}
+              >
+                Go to MyCards
+              </button>
+            </div>
+          </div>
+        )}
+      </div>
+    );
+  }
+}
+
+export default BuyCard;
