@@ -338,8 +338,8 @@ class BuyCard extends Component {
 }
 
 export default BuyCard;
- .....................................................
-css............
+...............................
+css...................
 /* PAGE BACKGROUND */
 .home-page {
     min-height: 100vh;
@@ -427,7 +427,7 @@ css............
 
 /* STUDENT CARD BG */
 .student {
-    background-image: url("../assets/skyblue.jpg");
+    background-image: url("../../public/assets/skyblue.jpg");
     background-size: cover;
     background-position: center;
 }
@@ -436,7 +436,7 @@ css............
 .regular {
     background-image: linear-gradient(rgba(0, 0, 0, 0.55),
     rgba(0, 0, 0, 0.55)),
-    url("../assets/violat.jpg");
+    url("../../public/assets/regular.png");
     background-size: cover;
     background-position: center;
 }
@@ -687,4 +687,13 @@ css............
 .modal-card .btnpurchase {
     margin-top: 14px;
     width: 100%;
+}
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    border: none;
+    background: transparent;
+    font-size: 18px;
+    cursor: pointer;
 }
