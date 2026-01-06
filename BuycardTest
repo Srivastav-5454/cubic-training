@@ -1,0 +1,122 @@
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import "@testing-library/jest-dom";
+import BuyCard from "../BuyCard";
+
+/* ---------------- MOCK CHILD COMPONENTS ---------------- */
+jest.mock("../Sidebar", () => () => <div>Sidebar</div>);
+jest.mock("../Navbar", () => () => <div>Navbar</div>);
+
+/* ---------------- MOCK FETCH ---------------- */
+global.fetch = jest.fn();
+
+describe("BuyCard Component", () => {
+
+  beforeEach(() => {
+    fetch.mockClear();
+    localStorage.setItem("jwtToken", "dummy-token");
+  });
+
+  /* ---------- TEST 1: RENDERING ---------- */
+  test("renders BuyCard page correctly", async () => {
+    fetch.mockResolvedValueOnce({
+      json: async () => ({
+        active: false,
+        cardType: null,
+        balance: null,
+      }),
+    });
+
+    render(<BuyCard />);
+
+    expect(screen.getByText("Buy Your Metro Pass")).toBeInTheDocument();
+    expect(screen.getByText("Student Metro Card")).toBeInTheDocument();
+    expect(screen.getByText("Regular Metro Card")).toBeInTheDocument();
+  });
+
+  /* ---------- TEST 2: BUY NOW CLICK ---------- */
+  test("clicking Buy Now sets selected card type", async () => {
+    fetch.mockResolvedValueOnce({
+      json: async () => ({ active: false }),
+    });
+
+    render(<BuyCard />);
+
+    fireEvent.click(screen.getAllByText("Buy Now")[0]);
+
+    expect(await screen.findByText("Complete Purchase")).toBeInTheDocument();
+  });
+
+  /* ---------- TEST 3: FORM VALIDATION ---------- */
+  test("shows error when submitting empty form", async () => {
+    fetch.mockResolvedValueOnce({
+      json: async () => ({ active: false }),
+    });
+
+    render(<BuyCard />);
+
+    fireEvent.click(screen.getByText("Complete Purchase"));
+
+    expect(
+      await screen.findByText("Please fill all fields")
+    ).toBeInTheDocument();
+  });
+
+  /* ---------- TEST 4: ALREADY PURCHASED ---------- */
+  test("shows popup if card already purchased", async () => {
+    fetch.mockResolvedValueOnce({
+      json: async () => ({
+        active: true,
+        cardType: "student",
+        balance: 60,
+      }),
+    });
+
+    render(<BuyCard />);
+
+    fireEvent.change(screen.getByDisplayValue(""), {
+      target: { value: "student" },
+    });
+
+    fireEvent.click(screen.getByText("Complete Purchase"));
+
+    expect(
+      await screen.findByText(
+        "You already purchased the card, so you can use it."
+      )
+    ).toBeInTheDocument();
+  });
+
+  /* ---------- TEST 5: SUCCESSFUL PURCHASE ---------- */
+  test("shows success popup on successful purchase", async () => {
+    fetch
+      .mockResolvedValueOnce({
+        json: async () => ({ active: false }),
+      })
+      .mockResolvedValueOnce({
+        json: async () => ({ success: true }),
+      });
+
+    render(<BuyCard />);
+
+    fireEvent.change(screen.getByDisplayValue(""), {
+      target: { value: "student" },
+    });
+
+    fireEvent.change(screen.getByLabelText("Location"), {
+      target: { value: "Hyderabad" },
+    });
+
+    fireEvent.change(screen.getByLabelText("Bank"), {
+      target: { value: "SBI" },
+    });
+
+    fireEvent.click(screen.getByText("Complete Purchase"));
+
+    expect(
+      await screen.findByText(
+        "You successfully purchased the card, you can use it now."
+      )
+    ).toBeInTheDocument();
+  });
+});
