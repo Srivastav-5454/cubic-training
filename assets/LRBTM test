@@ -1,0 +1,106 @@
+import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { BrowserRouter } from "react-router-dom";
+import Login from "../components/Login";
+
+// Mock fetch globally
+global.fetch = jest.fn();
+
+const renderLogin = () => {
+  render(
+    <BrowserRouter>
+      <Login />
+    </BrowserRouter>
+  );
+};
+
+describe("Login Component", () => {
+  beforeEach(() => {
+    fetch.mockClear();
+    localStorage.clear();
+  });
+
+  test("renders login page correctly", () => {
+    renderLogin();
+
+    expect(screen.getByText(/Welcome back/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
+  });
+
+  test("shows error for invalid mobile number", async () => {
+    renderLogin();
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "123", name: "mobileNumber" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
+
+    expect(
+      await screen.findByText(/valid mobile number/i)
+    ).toBeInTheDocument();
+  });
+
+  test("shows error when password is empty", async () => {
+    renderLogin();
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "9876543210", name: "mobileNumber" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
+
+    expect(await screen.findByText(/enter password/i)).toBeInTheDocument();
+  });
+
+  test("calls login API on valid submit", async () => {
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ token: "fake-jwt-token" }),
+    });
+
+    renderLogin();
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "9876543210", name: "mobileNumber" },
+    });
+
+    fireEvent.change(screen.getByLabelText(/password/i), {
+      target: { value: "password123", name: "password" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
+
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledWith(
+        "http://localhost:8080/auth/login",
+        expect.objectContaining({
+          method: "POST",
+        })
+      );
+    });
+  });
+
+  test("shows error message on login failure", async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+      json: async () => ({ message: "Invalid credentials" }),
+    });
+
+    renderLogin();
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "9876543210", name: "mobileNumber" },
+    });
+
+    fireEvent.change(screen.getByLabelText(/password/i), {
+      target: { value: "wrongpass", name: "password" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
+
+    expect(
+      await screen.findByText(/invalid credentials/i)
+    ).toBeInTheDocument();
+  });
+});
