@@ -111,3 +111,820 @@ export default class Login extends Component {
         );
     }
 }
+.....................register...................
+import React, { Component } from "react";
+import { Link } from "react-router-dom";
+import "../styles/Register.css";
+
+export default class Register extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: "",
+            mobileNumber: "",
+            password: "",
+            confirmPassword: "",
+            err: "",
+        };
+    }
+
+    handleChange = (e) => {
+        this.setState({ [e.target.name]: e.target.value });
+    };
+
+    onSubmit = async (e) => {
+        e.preventDefault();
+
+        const { name, mobileNumber, password, confirmPassword } = this.state;
+        this.setState({ err: "" });
+
+        if (!name || !mobileNumber || !password || !confirmPassword) {
+            this.setState({ err: "Please fill all fields" });
+            return;
+        }
+
+        if (!/^\d{10}$/.test(mobileNumber)) {
+            this.setState({ err: "Mobile number must contain exactly 10 digits." });
+            return;
+        }
+
+        const strongPassword =
+            /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/;
+
+        if (!strongPassword.test(password)) {
+            this.setState({
+                err: "Password must be strong (8+ chars, uppercase, lowercase, number, special character).",
+            });
+            return;
+        }
+
+        if (password !== confirmPassword) {
+            this.setState({ err: "Passwords do not match." });
+            return;
+        }
+
+        try {
+            const response = await fetch("http://localhost:8080/users/register", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                },
+                body: JSON.stringify({
+
+                    "password": password,
+                    "phoneNumber": mobileNumber,
+                    "confirmPassword": confirmPassword,
+                    "userName": name,
+                }),
+            });
+
+            const result = await response.text();
+
+            if (response.ok) {
+                window.location.href = "/login";
+            } else {
+                this.setState({ err: result });
+            }
+        } catch (ex) {
+            this.setState({ err: ex.message || "Registration failed" });
+            console.log(ex.message)
+        }
+    };
+
+    render() {
+        const { name, mobileNumber, password, confirmPassword, err } = this.state;
+
+        return (
+            <div className="auth-page">
+                <div className="brand">
+                    <div className="brand-title">Metro Transit</div>
+                    <div className="brand-subtitle">Your digital fare collection system</div>
+                </div>
+
+                <div className="auth-card">
+                    <h2>Create account</h2>
+                    <p>Sign up to start your journey</p>
+
+                    {err && <div className="auth-error">{err}</div>}
+
+                    <form onSubmit={this.onSubmit}>
+                        <label className="auth-label">Full Name</label>
+                        <input
+                            className="auth-input"
+                            type="text"
+                            name="name"
+                            value={name}
+                            onChange={this.handleChange}
+                        />
+
+                        <label className="auth-label">Mobile Number</label>
+                        <input
+                            className="auth-input"
+                            type="tel"
+                            name="mobileNumber"
+                            value={mobileNumber}
+                            onChange={this.handleChange}
+                        />
+
+                        <label className="auth-label">Password</label>
+                        <input
+                            className="auth-input"
+                            type="password"
+                            name="password"
+                            value={password}
+                            onChange={this.handleChange}
+                        />
+
+                        <label className="auth-label">Confirm Password</label>
+                        <input
+                            className="auth-input"
+                            type="password"
+                            name="confirmPassword"
+                            value={confirmPassword}
+                            onChange={this.handleChange}
+                        />
+
+                        <button className="auth-btn">Create account</button>
+                    </form>
+
+                    <div className="auth-footer">
+                        Already have an account? <Link to="/login">Sign in</Link>
+                    </div>
+                </div>
+            </div>
+        );
+    }
+}
+.......................buy card ................
+
+import React, { Component, createRef } from "react";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import "../styles/BuyCard.css";
+
+class BuyCard extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedCard: "student",
+
+            cardDetails: {
+                active: false,
+                cardType: null,
+                balance: null,
+            },
+
+            formData: {
+                cardType: "",
+                location: "",
+                bank: "",
+            },
+
+            formError: "",
+            popupMessage: "",
+            showPopup: false,
+        };
+
+        this.formRef = createRef();
+    }
+
+    componentDidMount() {
+        this.fetchMyCardDetails();
+    }
+
+    fetchMyCardDetails = async () => {
+        const token = localStorage.getItem("jwtToken");
+
+        try {
+            const response = await fetch(
+                "http://localhost:8081/api/transit/my-cards",
+                {
+                    headers: {
+                        Authorization: `Bearer ${token}`,
+                    },
+                }
+            );
+
+            if (response.status === 404) {
+
+                await response.text();
+                this.setState({
+                    cardDetails: { active: false, cardType: null, balance: null },
+                });
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error("Failed to fetch card details");
+            }
+
+            const data = await response.json();
+
+            this.setState({
+                cardDetails: {
+                    active: data.cardActive,
+                    cardType: data.cardType,
+                    balance: data.balance,
+                },
+            });
+        } catch (error) {
+            this.setState({ formError: error.message });
+        }
+    };
+
+
+    handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const { cardType, location, bank } = this.state.formData;
+        const { active } = this.state.cardDetails;
+
+        if (!cardType || !location || !bank) {
+            this.setState({ formError: "Please fill all fields" });
+            return;
+        }
+
+        this.setState({ formError: "" });
+
+        if (active) {
+            this.setState({
+                popupMessage: "You already purchased the card, so you can use it.",
+                showPopup: true,
+            });
+            return;
+        }
+
+        const token = localStorage.getItem("jwtToken");
+
+        try {
+            const response = await fetch(
+                "http://localhost:8081/api/transit/buy",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        cardType: cardType.toUpperCase(),
+                        balance: 60,
+                    }),
+                }
+            );
+
+            if (response.status === 409) {
+                const message = await response.text();
+                this.setState({
+                    popupMessage: message,
+                    showPopup: true,
+                });
+                return;
+            }
+
+            if (!response.ok) {
+                throw new Error("Purchase failed");
+            }
+
+            const data = await response.json();
+
+            this.setState({
+                popupMessage:
+                    "You successfully purchased the card, you can use it now.",
+                showPopup: true,
+                cardDetails: {
+                    active: data.cardActive,
+                    cardType: data.cardType,
+                    balance: data.balance,
+                },
+            });
+        } catch (error) {
+            this.setState({ formError: error.message });
+        }
+    };
+
+    closePopup = () => {
+        this.setState({ showPopup: false });
+    };
+
+    render() {
+        const { selectedCard, formData, formError, showPopup, popupMessage } =
+            this.state;
+
+        return (
+            <div className="home-page buycard-page">
+                <Navbar />
+
+                <div className="Sidebarcontainer">
+                    <Sidebar />
+
+                    <div className="buybodycontainer">
+                        <div>
+                            <h2 className="page-title">Buy Your Metro Pass</h2>
+                            <p className="page-subtitle">
+                                Smart, fast and secure way to travel every day
+                            </p>
+                        </div>
+
+                        <div className="typestobuycard">
+                            <div
+                                className={`metro-card  ${
+                                    selectedCard === "student" ? "active" : ""
+                                }`}
+                                onClick={() => this.setState({ selectedCard: "student" })}
+
+                                style={{
+                                    backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${"/assets/violat.jpg"})`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                }}
+                            >
+                                <h3>Student Metro Card</h3>
+                                <p>Perfect for daily commuters</p>
+
+                                <ul>
+                                    <li>Card Price : $5</li>
+                                    <li>Min Wallet : $40</li>
+                                    <li>Trip cost : $4</li>
+                                    <li>Card Validity : 60 days</li>
+                                </ul>
+
+                                <h4>Total price : $45</h4>
+
+                            </div>
+
+                            <div
+                                className={`metro-card  ${
+                                    selectedCard === "regular" ? "active" : ""
+                                }`}
+                                onClick={() => this.setState({ selectedCard: "regular" })}
+
+                                style={{
+                                    backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${"/assets/skyblue.jpg"})`,
+                                    backgroundSize: "cover",
+                                    backgroundPosition: "center",
+                                }}
+                            >
+                                <h3>Regular Metro Card</h3>
+                                <p>Perfect for daily commuters</p>
+
+                                <ul>
+                                    <li>Card Price : $5</li>
+                                    <li>Min Wallet : $50</li>
+                                    <li>Trip cost : $5</li>
+                                    <li>Card Validity : 60 days</li>
+                                </ul>
+
+                                <h4>Total price : $55</h4>
+
+                            </div>
+                        </div>
+
+                        <form
+                            ref={this.formRef}
+                            className="buyCardForm"
+                            onSubmit={this.handleSubmit}
+                        >
+                            <h3 className="purchase-title">Complete Purchase</h3>
+
+                            <label>Card Type</label>
+                            <select
+                                className="inputboxbuysection"
+                                value={formData.cardType}
+                                onChange={(e) =>
+                                    this.setState({
+                                        formData: {
+                                            ...formData,
+                                            cardType: e.target.value,
+                                        },
+                                    })
+                                }
+                            >
+                                <option value="">Select Card Type</option>
+                                <option value="student">Student</option>
+                                <option value="regular">Regular</option>
+                            </select>
+
+                            <label>Location</label>
+                            <input
+                                className="inputboxbuysection"
+                                value={formData.location}
+                                onChange={(e) =>
+                                    this.setState({
+                                        formData: {
+                                            ...formData,
+                                            location: e.target.value,
+                                        },
+                                    })
+                                }
+                            />
+
+                            <label>Bank</label>
+                            <input
+                                className="inputboxbuysection"
+                                value={formData.bank}
+                                onChange={(e) =>
+                                    this.setState({
+                                        formData: {
+                                            ...formData,
+                                            bank: e.target.value,
+                                        },
+                                    })
+                                }
+                            />
+
+                            {formError && <p className="form-error">{formError}</p>}
+
+                            <button type="submit" className="btnpurchase">
+                                Complete Purchase
+                            </button>
+                        </form>
+
+                    </div>
+                </div>
+
+                {showPopup && (
+                    <div className="payment-modal">
+                        <div className="modal-card">
+                            <button
+                                style={{
+                                    position: "absolute",
+                                    top: "10px",
+                                    right: "14px",
+                                    border: "none",
+                                    background: "transparent",
+                                    fontSize: "18px",
+                                    cursor: "pointer",
+                                }}
+                                onClick={this.closePopup}
+                            >
+                                ✕
+                            </button>
+
+                            <p className="success-text">{popupMessage}</p>
+
+                            <button
+                                className="btnpurchase"
+                                onClick={() =>
+                                    (window.location.href = "/tapgate")
+                                }
+                            >
+                                Go to TapGate
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    }
+}
+
+export default BuyCard;
+
+
+/*
+import React, { Component, createRef } from "react";
+import Sidebar from "./Sidebar";
+import Navbar from "./Navbar";
+import "../styles/BuyCard.css";
+
+
+
+class BuyCard extends Component {
+    constructor(props) {
+        super(props);
+
+        this.state = {
+            selectedCard: "student",
+
+            cardDetails: {
+                active: false,
+                cardType: null,
+                balance: null,
+            },
+
+            formData: {
+                cardType: "",
+                location: "",
+                bank: "",
+            },
+
+            formError: "",
+
+            // 🔥 YOUR UI STATES
+            showModal: false,
+            step: 0,
+            alreadyPurchased: null,
+        };
+
+        this.formRef = createRef();
+        this.timers = [];
+    }
+
+    /!* -------------------- API (UNCHANGED) -------------------- *!/
+    componentDidMount() {
+        this.fetchMyCardDetails();
+    }
+
+    fetchMyCardDetails = async () => {
+        const token = localStorage.getItem("jwtToken");
+
+        try {
+            const response = await fetch(
+                "http://localhost:8081/api/transit/my-cards",
+                {
+                    headers: { Authorization: `Bearer ${token}` },
+                }
+            );
+
+            if (response.status === 404) {
+                this.setState({
+                    cardDetails: { active: false, cardType: null, balance: null },
+                });
+                return;
+            }
+
+            if (!response.ok) throw new Error("Failed to fetch card details");
+
+            const data = await response.json();
+
+            this.setState({
+                cardDetails: {
+                    active: data.cardActive,
+                    cardType: data.cardType,
+                    balance: data.balance,
+                },
+            });
+        } catch (error) {
+            this.setState({ formError: error.message });
+        }
+    };
+
+    /!* -------------------- UI HANDLERS -------------------- *!/
+    handleBuyNow = (type) => {
+        if (this.state.cardDetails.active) {
+            this.setState({ alreadyPurchased: type });
+            return;
+        }
+
+        this.setState({
+            selectedCard: type,
+            formData: { ...this.state.formData, cardType: type },
+        });
+
+        setTimeout(() => {
+            this.formRef.current?.scrollIntoView({
+                behavior: "smooth",
+                block: "center",
+            });
+        }, 100);
+    };
+
+    handleSubmit = async (e) => {
+        e.preventDefault();
+
+        const { cardType, location, bank } = this.state.formData;
+        const { active } = this.state.cardDetails;
+
+        if (!cardType || !location || !bank) {
+            this.setState({ formError: "Please fill all payment details" });
+            return;
+        }
+
+        if (active) {
+            this.setState({ alreadyPurchased: cardType });
+            return;
+        }
+
+        this.setState({ formError: "", showModal: true, step: 0 });
+
+        // 🔥 YOUR STEP ANIMATION
+        this.timers = [
+            setTimeout(() => this.setState({ step: 1 }), 1200),
+            setTimeout(() => this.setState({ step: 2 }), 2500),
+            setTimeout(() => this.setState({ step: 3 }), 3800),
+        ];
+
+        const token = localStorage.getItem("jwtToken");
+
+        try {
+            const response = await fetch(
+                "http://localhost:8081/api/transit/buy",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        cardType: cardType.toUpperCase(),
+                        balance: 100,
+                    }),
+                }
+            );
+
+            if (!response.ok) throw new Error("Purchase failed");
+
+            const data = await response.json();
+
+            this.setState({
+                cardDetails: {
+                    active: data.cardActive,
+                    cardType: data.cardType,
+                    balance: data.balance,
+                },
+            });
+        } catch (error) {
+            this.setState({ formError: error.message });
+        }
+    };
+
+    closeModal = () => {
+        if (this.state.step === 3) {
+            this.timers.forEach(clearTimeout);
+            this.setState({
+                showModal: false,
+                step: 0,
+                formData: { cardType: "", location: "", bank: "" },
+                selectedCard: "student",
+            });
+        }
+    };
+
+    /!* -------------------- RENDER -------------------- *!/
+    render() {
+        const {
+            selectedCard,
+            formData,
+            formError,
+            showModal,
+            step,
+            alreadyPurchased,
+        } = this.state;
+
+        return (
+            <div className="Home-page buycard-page"
+
+                 style={{
+                     backgroundImage: `url(${"/assets/pageBG.png"})`,
+                     backgroundSize: "cover",
+                     backgroundPosition: "center",
+                     backgroundAttachment: "fixed",
+                 }}
+            >
+                <Navbar />
+
+                <div className="Sidebarcontainer">
+                    <Sidebar />
+
+                    <div className="homebodycontainer">
+                        <div className="page-header">
+                            <h2 className="page-title">Buy Your Metro Pass</h2>
+                            <p className="page-subtitle">
+                                Smart, fast and secure way to travel every day
+                            </p>
+                        </div>
+
+                        {/!* CARDS *!/}
+                        <div className="typestobuycard">
+                            {["student", "regular"].map((type) => (
+                                <div
+                                    key={type}
+                                    className={`metro-card ${type} ${
+                                        selectedCard === type ? "active" : ""
+                                    }`}
+                                    onClick={() => this.setState({ selectedCard: type })}
+
+                                    style={{
+                                        backgroundImage: `linear-gradient(rgba(0,0,0,0.55), rgba(0,0,0,0.55)), url(${"/assets/regular.png"})`,
+                                        backgroundSize: "cover",
+                                        backgroundPosition: "center",
+                                    }}
+
+                                >
+                                    <h3>{type === "student" ? "Student" : "Regular"} Metro Card</h3>
+                                    <p>Perfect for daily commuters</p>
+
+                                    <ul>
+                                        <li>Card Price : $1</li>
+                                        <li>Min Wallet : $50</li>
+                                        <li>Trip cost : $4</li>
+                                        <li>Card Validity : 60 days</li>
+                                    </ul>
+
+                                    <h4>Total price : $51</h4>
+                                    <button
+                                        className="buy-now"
+                                        onClick={(e) => {
+                                            e.stopPropagation();
+                                            this.handleBuyNow(type);
+                                        }}
+                                    >
+                                        Buy Now
+                                    </button>
+                                </div>
+                            ))}
+                        </div>
+
+                        {/!* FORM *!/}
+                        <form
+                            ref={this.formRef}
+                            className="buyCardForm"
+                            onSubmit={this.handleSubmit}
+                        >
+                            <h3 className="purchase-title">Complete Purchase</h3>
+
+                            <label>Card Type</label>
+                            <select
+                                className="inputboxbuysection"
+                                value={formData.cardType}
+                                onChange={(e) =>
+                                    this.setState({
+                                        formData: { ...formData, cardType: e.target.value },
+                                    })
+                                }
+                            >
+                                <option value="">Select Card Type</option>
+                                <option value="student">Student</option>
+                                <option value="regular">Regular</option>
+                            </select>
+
+                            <label>Location</label>
+                            <input
+                                className="inputboxbuysection"
+                                value={formData.location}
+                                onChange={(e) =>
+                                    this.setState({
+                                        formData: { ...formData, location: e.target.value },
+                                    })
+                                }
+                            />
+
+                            <label>Bank</label>
+                            <input
+                                className="inputboxbuysection"
+                                value={formData.bank}
+                                onChange={(e) =>
+                                    this.setState({
+                                        formData: { ...formData, bank: e.target.value },
+                                    })
+                                }
+                            />
+
+                            {formError && <p className="form-error">{formError}</p>}
+
+                            <button className="btnpurchase">Complete Purchase</button>
+                        </form>
+                    </div>
+                </div>
+
+                {/!* 🔥 PURCHASE MODAL *!/}
+                {showModal && (
+                    <div className="payment-modal" onClick={this.closeModal}>
+                        <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+                            {step < 3 ? (
+                                <>
+                                    <div className="loader-ring"></div>
+                                    <p className="status-text">
+                                        {["Fetching details", "Checking amount", "Checking bank details"][step]}
+                                    </p>
+                                </>
+                            ) : (
+                                <>
+                                    <div className="success-check">✔</div>
+                                    <p className="success-text">PURCHASE SUCCESSFUL!</p>
+                                    <p className="tap-text">Tap anywhere to close</p>
+                                </>
+                            )}
+                        </div>
+                    </div>
+                )}
+
+                {/!* 🔥 ALREADY PURCHASED MODAL *!/}
+                {alreadyPurchased && (
+                    <div
+                        className="payment-modal"
+                        onClick={() => this.setState({ alreadyPurchased: null })}
+                    >
+                        <div className="modal-card" onClick={(e) => e.stopPropagation()}>
+                            <div className="info-icon">ℹ️</div>
+                            <p className="success-text">
+                                You already purchased the <strong>{alreadyPurchased}</strong> card
+                            </p>
+                            <button
+                                className="btnpurchase"
+                                onClick={() => (window.location.href = "/mycards")}
+                            >
+                                Go to MyCards
+                            </button>
+                        </div>
+                    </div>
+                )}
+            </div>
+        );
+    }
+}
+
+export default BuyCard;
+*/
+
