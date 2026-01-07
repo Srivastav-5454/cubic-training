@@ -1,0 +1,285 @@
+error:
+> frontend@0.1.0 test
+> react-scripts test
+ FAIL  src/components/__tests__/Login.test.jsx
+  ● Test suite failed to run
+
+    Cannot find module 'react-router-dom' from 'src/components/__tests__/Login.test.jsx'
+
+      1 | import React from "react";
+      2 | import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+    > 3 | import { MemoryRouter } from "react-router-dom";
+        | ^
+      4 | import Login from "./components/Login";
+      5 |
+      6 | // Mock fetch globally
+
+      at Resolver.resolveModule (node_modules/jest-resolve/build/resolver.js:324:11)
+      at Object.<anonymous> (src/components/__tests__/Login.test.jsx:3:1)
+
+ FAIL  src/App.test.js
+  ● Test suite failed to run                                     
+                                                                 
+    Cannot find module 'react-router-dom' from 'src/App.js'      
+                                                                 
+    Require stack:                                               
+      src/App.js                                                 
+      src/App.test.js                                            
+
+      34 |
+      35 | import React, { Component } from "react";
+    > 36 | import { BrowserRouter, Routes, Route, Navigate } from
+ "react-router-dom";
+         | ^
+      37 | import Login from "./components/Login";
+      38 | import Register from "./components/Register";
+      39 | import BuyCard from "./components/BuyCard";
+
+      at Resolver.resolveModule (node_modules/jest-resolve/build/resolver.js:324:11)
+      at Object.<anonymous> (src/App.js:36:1)
+      at Object.<anonymous> (src/App.test.js:2:1)
+
+Test Suites: 2 failed, 2 total
+Tests:       0 total
+Snapshots:   0 total
+Time:        3.48 s
+Ran all test suites related to changed files.
+...............
+package.json............
+{
+  "name": "frontend",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@testing-library/dom": "^10.4.1",
+    "@testing-library/jest-dom": "^6.9.1",
+    "@testing-library/react": "^16.3.1",
+    "@testing-library/user-event": "^13.5.0",
+    "react": "^19.2.3",
+    "react-dom": "^19.2.3",
+    "react-qr-code": "^2.0.18",
+    "react-router-dom": "^7.11.0",
+    "react-scripts": "^5.0.1",
+    "react-select": "^5.10.2",
+    "web-vitals": "^2.1.4"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": [
+      "react-app",
+      "react-app/jest"
+    ]
+  },
+  "browserslist": {
+    "production": [
+      ">0.2%",
+      "not dead",
+      "not op_mini all"
+    ],
+    "development": [
+      "last 1 chrome version",
+      "last 1 firefox version",
+      "last 1 safari version"
+    ]
+  }
+}
+.........................
+app.js
+/*
+import React, { Component } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import BuyCard from "./components/BuyCard";
+import TapGate from "./components/TapGate";
+import Home from "./components/MyCards";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+class App extends Component {
+
+
+  render() {
+    return (
+        <BrowserRouter>
+          <Routes>
+            <Route path="/" element={<Navigate to="/login" replace />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/register" element={<Register />} />
+              <ProtectedRoute path="/MyCards" element={<Home />} />
+              <ProtectedRoute path="/BuyCard" element={<BuyCard />} />
+              <ProtectedRoute path="/TapGate" element={<TapGate/>} />
+            <Route path="*" element={<Navigate to="/login" replace />} />
+          </Routes>
+        </BrowserRouter>
+    );
+  }
+}
+
+export default App;
+*/
+
+
+import React, { Component } from "react";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
+import Login from "./components/Login";
+import Register from "./components/Register";
+import BuyCard from "./components/BuyCard";
+import TapGate from "./components/TapGate";
+import Home from "./components/MyCards";
+import ProtectedRoute from "./components/ProtectedRoute";
+
+
+class App extends Component {
+    render() {
+        return (
+            <BrowserRouter>
+                <Routes>
+                    <Route path="/" element={<Navigate to="/login" replace />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/register" element={<Register />} />
+
+                    {/* Protected wrapper route */}
+                    <Route element={<ProtectedRoute redirectTo="/login" />}>
+                        <Route path="/MyCards" element={<Home />} />
+                        <Route path="/BuyCard" element={<BuyCard />} />
+                        <Route path="/TapGate" element={<TapGate />} />
+                    </Route>
+
+                    <Route path="*" element={<Navigate to="/login" replace />} />
+                </Routes>
+            </BrowserRouter>
+        );
+    }
+}
+
+export default App;
+
+................app.test.js..........
+import { render, screen } from '@testing-library/react';
+import App from './App';
+
+test('renders learn react link', () => {
+  render(<App />);
+  const linkElement = screen.getByText(/learn react/i);
+  expect(linkElement).toBeInTheDocument();
+});
+.................
+setupTests.js..
+// jest-dom adds custom jest matchers for asserting on DOM nodes.
+// allows you to do things like:
+// expect(element).toHaveTextContent(/react/i)
+// learn more: https://github.com/testing-library/jest-dom
+import '@testing-library/jest-dom';
+......................
+Login.test.jsx
+.....import React from "react";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
+import Login from "./components/Login";
+
+// Mock fetch globally
+global.fetch = jest.fn();
+
+const renderLogin = () => {
+  render(
+    <MemoryRouter>
+      <Login />
+    </MemoryRouter>
+  );
+};
+
+describe("Login Component", () => {
+  beforeEach(() => {
+    fetch.mockClear();
+    localStorage.clear();
+  });
+
+  test("renders login page correctly", () => {
+    renderLogin();
+
+    expect(screen.getByText(/Welcome back/i)).toBeInTheDocument();
+    expect(screen.getByRole("button", { name: /sign in/i })).toBeInTheDocument();
+  });
+
+  test("shows error for invalid mobile number", async () => {
+    renderLogin();
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "123", name: "mobileNumber" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
+
+    expect(
+      await screen.findByText(/valid mobile number/i)
+    ).toBeInTheDocument();
+  });
+
+  test("shows error when password is empty", async () => {
+    renderLogin();
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "9876543210", name: "mobileNumber" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
+
+    expect(await screen.findByText(/enter password/i)).toBeInTheDocument();
+  });
+
+  test("calls login API on valid submit", async () => {
+    fetch.mockResolvedValueOnce({
+      ok: true,
+      json: async () => ({ token: "fake-jwt-token" }),
+    });
+
+    renderLogin();
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "9876543210", name: "mobileNumber" },
+    });
+
+    fireEvent.change(screen.getByLabelText(/password/i), {
+      target: { value: "password123", name: "password" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
+
+    await waitFor(() => {
+      expect(fetch).toHaveBeenCalledWith(
+        "http://localhost:8080/auth/login",
+        expect.objectContaining({
+          method: "POST",
+        })
+      );
+    });
+  });
+
+  test("shows error message on login failure", async () => {
+    fetch.mockResolvedValueOnce({
+      ok: false,
+      json: async () => ({ message: "Invalid credentials" }),
+    });
+
+    renderLogin();
+
+    fireEvent.change(screen.getByRole("textbox"), {
+      target: { value: "9876543210", name: "mobileNumber" },
+    });
+
+    fireEvent.change(screen.getByLabelText(/password/i), {
+      target: { value: "wrongpass", name: "password" },
+    });
+
+    fireEvent.click(screen.getByRole("button", { name: /sign in/i }));
+
+    expect(
+      await screen.findByText(/invalid credentials/i)
+    ).toBeInTheDocument();
+  });
+});
