@@ -4,71 +4,68 @@ PS D:\frontend_final\frontend> npm test -- --coverage
 > react-scripts test --coverage
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
  RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
+ RUNS  src/__tests__/TapGate.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
  RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
+ RUNS  src/__tests__/TapGate.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
  RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
+ RUNS  src/__tests__/TapGate.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
  RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
+ RUNS  src/__tests__/TapGate.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
  RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
+ RUNS  src/__tests__/TapGate.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
  FAIL  src/__tests__/Metroline.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
-  ● MetroLine Component › moves metro through stations over time
-
-    expect(element).toHaveClass("active")
-
-    Expected the element to have class:
-      active
-    Received:
-
-      56 |         });
-      57 |
-    > 58 |         expect(screen.getByText("Station A")).toHaveClass("active");
-         |                                               ^
-      59 |     });
-      60 |
-      61 |     test("shows destination reached popup after final station", () => {
-
-      at Object.<anonymous> (src/__tests__/Metroline.test.jsx:58:47)
-
   ● MetroLine Component › shows destination reached popup after final station
 
-    TestingLibraryElementError: Unable to find an element with the text: Destination Reached!. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+    TestingLibraryElementError: Unable to find an element with the text: /Destination Reached!/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
 
     Ignored nodes: comments, script, style
     <body>
@@ -140,19 +137,19 @@ PS D:\frontend_final\frontend> npm test -- --coverage
       </div>
     </body>
 
-      72 |         });
-      73 |
-    > 74 |         expect(screen.getByText("Destination Reached!")).toBeInTheDocument();
-         |                       ^
-      75 |         expect(screen.getByText(/Secunderabad/)).toBeInTheDocument();
-      76 |     });
-      77 |
+      64 |
+      65 |         expect(
+    > 66 |             screen.getByText(/Destination Reached!/i)
+         |                    ^
+      67 |         ).toBeInTheDocument();
+      68 |
+      69 |         expect(
 
       at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
       at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
       at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
       at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
-      at Object.<anonymous> (src/__tests__/Metroline.test.jsx:74:23)
+      at Object.<anonymous> (src/__tests__/Metroline.test.jsx:66:20)
 
   ● MetroLine Component › New Trip button triggers callback
 
@@ -228,438 +225,57 @@ PS D:\frontend_final\frontend> npm test -- --coverage
       </div>
     </body>
 
-      90 |         });
-      91 |
-    > 92 |         screen.getByText("New Trip").click();
+      82 |         });
+      83 |
+    > 84 |         screen.getByText("New Trip").click();
          |                ^
-      93 |         expect(onNewTrip).toHaveBeenCalled();
-      94 |     });
-      95 | });
+      85 |         expect(onNewTrip).toHaveBeenCalledTimes(1);
+      86 |     });
+      87 | });
 
       at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
       at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
       at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
       at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
-      at Object.<anonymous> (src/__tests__/Metroline.test.jsx:92:16)
+      at Object.<anonymous> (src/__tests__/Metroline.test.jsx:84:16)
 
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Metroline.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
- FAIL  src/__tests__/MyCardB.test.jsx
+ RUNS  src/__tests__/TapGate.test.jsx
+ PASS  src/__tests__/MyCardB.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
-  ● MyCardB Component › calculates and displays correct trip count for student card
-
-    TestingLibraryElementError: Unable to find an element with the text: /5 times/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
-
-    Ignored nodes: comments, script, style
-    <body>
-      <div>
-        <div
-          class="card-wrapper"
-        >
-          <div
-            class="card-ui"
-          >
-            <div
-              class="card-chip"
-            >
-              <svg
-                fill="none"
-                height="32"
-                viewBox="0 0 40 32"
-                width="40"
-              >
-                <rect
-                  fill="rgba(234, 246, 255, 0.2)"
-                  height="32"
-                  rx="4"
-                  width="40"
-                />
-                <rect
-                  fill="rgba(234, 246, 255, 0.3)"
-                  height="16"
-                  rx="2"
-                  width="24"
-                  x="8"
-                  y="8"
-                />
-              </svg>
-            </div>
-            <div
-              class="card-header"
-            >
-              <div>
-                <h3
-                  class="card-name"
-                >
-                  STUDENT
-                   PASS
-                </h3>
-                <p
-                  class="card-no"
-                >
-                  1111 2222
-                </p>
-              </div>
-              <div
-                class="card-type-badge"
-              >
-                Student
-              </div>
-            </div>
-            <div
-              class="balance-section"
-            >
-              <p
-                class="big-balance-label"
-              >
-                Available Balance
-              </p>
-              <p
-                class="bigbalance"
-              >
-                $
-                20
-                .00
-              </p>
-            </div>
-            <div
-              class="mitrocarddiv3"
-            >
-              <div
-                class="trip-info-item"
-              >
-                <div
-                  class="trip-icon"
-                >
-                  <svg
-                    fill="none"
-                    height="20"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="20"
-                  >
-                    <path
-                      d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <p
-                    class="trip-label"
-                  >
-                    Available Trips
-                  </p>
-                  <p
-                    class="trip-value"
-                  >
-                    5
-                     Trips
-                  </p>
-                </div>
-              </div>
-              <div
-                class="trip-info-item"
-              >
-                <div
-                  class="trip-icon"
-                >
-                  <svg
-                    fill="none"
-                    height="20"
-                    stroke="currentColor"
-                    stroke-width="2"
-                    viewBox="0 0 24 24"
-                    width="20"
-                  >
-                    <circle
-                      cx="12"
-                      cy="12"
-                      r="10"
-                    />
-                    <path
-                      d="M12 6v6l4 2"
-                    />
-                  </svg>
-                </div>
-                <div>
-                  <p
-                    class="trip-label"
-                  >
-                    Each Trip Cost
-                  </p>
-                  <p
-                    class="trip-value"
-                  >
-                    $
-                    4
-                    .00
-                  </p>
-                </div>
-              </div>
-            </div>
-            <div
-              class="card-pattern"
-            >
-              <svg
-                height="100%"
-                opacity="0.1"
-                width="100%"
-              >
-                <pattern
-                  height="20"
-                  id="grid"
-                  patternUnits="userSpaceOnUse"
-                  width="20"
-                >
-                  <circle
-                    cx="2"
-                    cy="2"
-                    fill="white"
-                    r="1"
-                  />
-                </pattern>
-                <rect
-                  fill="url(#grid)"
-                  height="100%"
-                  width="100%"
-                />
-              </svg>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
-
-      32 |         render(<MyCardB cardData={mockCardData} />);
-      33 |
-    > 34 |         expect(screen.getByText(/5 times/i)).toBeInTheDocument();
-         |                       ^
-      35 |     });
-      36 |
-      37 |     test("shows correct trip cost for regular card", () => {
-
-      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
-      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
-      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
-      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
-      at Object.<anonymous> (src/__tests__/MyCardB.test.jsx:34:23)
-
+ RUNS  src/__tests__/TapGate.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/MyCardB.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
- FAIL  src/__tests__/Login.test.jsx
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
-  ● Console
-
-    console.warn
-      ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
-
-       7 |
-       8 | const setup = () => {
-    >  9 |   const utils = render(
-         |                       ^
-      10 |       <BrowserRouter>
-      11 |         <Login />
-      12 |       </BrowserRouter>
-
-      at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
-      at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
-      at Object.logV6DeprecationWarnings [as UNSAFE_logV6DeprecationWarnings] (node_modules/react-router/lib/deprecations.ts:26:5)
-      at node_modules/react-router-dom/index.tsx:816:25
-      at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
-      at commitHookPassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
-      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
-      at recursivelyTraversePassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:15439:11)
-      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15519:11)
-      at flushPassiveEffects (node_modules/react-dom/cjs/react-dom-client.development.js:18432:9)
-      at node_modules/react-dom/cjs/react-dom-client.development.js:17923:15
-      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
-      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
-      at node_modules/@testing-library/react/dist/act-compat.js:46:25
-      at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
-      at render (node_modules/@testing-library/react/dist/pure.js:291:10)
-      at setup (src/__tests__/Login.test.jsx:9:23)
-      at Object.<anonymous> (src/__tests__/Login.test.jsx:34:5)
-
-    console.warn
-      ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
-
-       7 |
-       8 | const setup = () => {
-    >  9 |   const utils = render(
-         |                       ^
-      10 |       <BrowserRouter>
-      11 |         <Login />
-      12 |       </BrowserRouter>
-
-      at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
-      at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
-      at Object.logV6DeprecationWarnings [as UNSAFE_logV6DeprecationWarnings] (node_modules/react-router/lib/deprecations.ts:37:5)
-      at node_modules/react-router-dom/index.tsx:816:25
-      at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
-      at commitHookPassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
-      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
-      at recursivelyTraversePassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:15439:11)
-      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15519:11)
-      at flushPassiveEffects (node_modules/react-dom/cjs/react-dom-client.development.js:18432:9)
-      at node_modules/react-dom/cjs/react-dom-client.development.js:17923:15
-      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
-      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
-      at node_modules/@testing-library/react/dist/act-compat.js:46:25
-      at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
-      at render (node_modules/@testing-library/react/dist/pure.js:291:10)
-      at setup (src/__tests__/Login.test.jsx:9:23)
-      at Object.<anonymous> (src/__tests__/Login.test.jsx:34:5)
-
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
-  ● Login Component – 100% Coverage › renders login UI
-
-    TestingLibraryElementError: Unable to find an element with the text: /welcome back/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
-
-    Ignored nodes: comments, script, style
-    <body>
-      <div>
-        <div
-          class="auth-page"
-        >
-          <div
-            class="brand"
-          >
-            <div
-              class="brand-title"
-            >
-              Metro Transit
-            </div>
-            <div
-              class="brand-subtitle"
-            >
-              Your digital fare collection system
-            </div>
-          </div>
-          <div
-            class="auth-card"
-          >
-            <div
-              class="auth-header"
-            >
-              <h2
-                style="text-align: center;"
-              >
-                Welcome
-              </h2>
-              <p
-                style="text-align: center;"
-              >
-                Sign in to access your transit cards
-              </p>
-            </div>
-            <form>
-              <label
-                class="auth-label"
-              >
-                Mobile Number
-              </label>
-              <input
-                class="auth-input"
-                name="mobileNumber"
-                type="tel"
-                value=""
-              />
-              <label
-                class="auth-label"
-              >
-                Password
-              </label>
-              <input
-                class="auth-input"
-                name="password"
-                type="password"
-                value=""
-              />
-              <button
-                class="auth-btn"
-                type="submit"
-              >
-                Sign in
-              </button>
-            </form>
-            <div
-              class="auth-footer"
-            >
-              Don't have an account?
-              <a
-                href="/register"
-              >
-                Register
-              </a>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
-
-      33 |   test("renders login UI", () => {
-      34 |     setup();
-    > 35 |     expect(screen.getByText(/welcome back/i)).toBeInTheDocument();
-         |                   ^
-      36 |   });
-      37 |
-      38 |   test("shows error for invalid mobile number", async () => {
-
-      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
-      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
-      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
-      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
-      at Object.<anonymous> (src/__tests__/Login.test.jsx:35:19)
-
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
  PASS  src/App.test.js
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
   ● Console
 
     console.warn
@@ -730,1347 +346,81 @@ PS D:\frontend_final\frontend> npm test -- --coverage
 
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
  RUNS  src/__tests__/Login.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
+ PASS  src/__tests__/TapGate.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- FAIL  src/__tests__/TapGate.test.jsx
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
   ● Console
 
     console.error
-      An update to TapGate inside a test was not wrapped in act(...).
+      You called act(async () => ...) without await. This could lead to unexpected testing behaviour, interleaving multiple act calls and mixing their scopes. You should - await act(async () => ...);
 
-      When testing, code that causes React state updates should be wrapped into act(...):
+      84 |
+      85 |     await act(async () => {
+    > 86 |       fireEvent.click(await screen.findByText("STUDENT"));
+         |                       ^
+      87 |     });
+      88 |
+      89 |     expect(await screen.findByText(/Card Dashboard/i)).toBeInTheDocument();
 
-      act(() => {
-        /* fire events that update state */
-      });
-      /* assert on the output */
-
-      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act     
-
-      39 |                 const data = await response.json();
-      40 |                 const cardsArray = Array.isArray(data) ? data : [data];
-    > 41 |                 this.setState({ ownedCards: cardsArray });
-         |                      ^
-      42 |                 if (this.state.selectedCardType) {
-      43 |                     const freshData = cardsArray.find(c => c.cardType === this.state.selectedCardType);
-      44 |                     this.setState({ activeCardData: freshData });
-
-      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
-      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
-      at Object.enqueueSetState (node_modules/react-dom/cjs/react-dom-client.development.js:27212:13)
-      at TapGate.setState (node_modules/react/cjs/react.development.js:655:20)
-      at TapGate.fetchOwnedCards (src/components/TapGate.jsx:41:22)
+      at node_modules/react/cjs/react.development.js:835:21
+      at runJobs (node_modules/@sinonjs/fake-timers/src/fake-timers-src.js:506:22)
+      at doTick (node_modules/@sinonjs/fake-timers/src/fake-timers-src.js:1270:13)
+      at Object.tick (node_modules/@sinonjs/fake-timers/src/fake-timers-src.js:1378:20)
+      at FakeTimers.advanceTimersByTime (node_modules/@jest/fake-timers/build/modernFakeTimers.js:101:19)
+      at node_modules/@testing-library/react/dist/pure.js:96:16
+      at Object.asyncWrapper (node_modules/@testing-library/react/dist/pure.js:91:13)
+      at src/__tests__/TapGate.test.jsx:86:23
 
     console.error
-      An update to TapGate inside a test was not wrapped in act(...).
+      Fetch Error: TypeError: Cannot read properties of undefined (reading 'ok')
+          at TapGate.fetchOwnedCards (D:\frontend_final\frontend\src\components\TapGate.jsx:38:26)
 
-      When testing, code that causes React state updates should be wrapped into act(...):
-
-      act(() => {
-        /* fire events that update state */
-      });
-      /* assert on the output */
-
-      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act     
-
-      39 |                 const data = await response.json();
-      40 |                 const cardsArray = Array.isArray(data) ? data : [data];
-    > 41 |                 this.setState({ ownedCards: cardsArray });
-         |                      ^
-      42 |                 if (this.state.selectedCardType) {
-      43 |                     const freshData = cardsArray.find(c => c.cardType === this.state.selectedCardType);
-      44 |                     this.setState({ activeCardData: freshData });
-
-      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
-      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
-      at Object.enqueueSetState (node_modules/react-dom/cjs/react-dom-client.development.js:27212:13)
-      at TapGate.setState (node_modules/react/cjs/react.development.js:655:20)
-      at TapGate.fetchOwnedCards (src/components/TapGate.jsx:41:22)
-
-    console.error
-      An update to TapGate inside a test was not wrapped in act(...).
-
-      When testing, code that causes React state updates should be wrapped into act(...):
-
-      act(() => {
-        /* fire events that update state */
-      });
-      /* assert on the output */
-
-      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act     
-
-      81 |             });
-      82 |             if (response.ok) {
-    > 83 |                 this.setState({ topUpAmount: "", showPopup: false });
-         |                      ^
-      84 |                 await this.fetchOwnedCards();
-      85 |             }
-      86 |         } catch (err) { this.setState({ error: "Top-up failed." }); }
-
-      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
-      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
-      at Object.enqueueSetState (node_modules/react-dom/cjs/react-dom-client.development.js:27212:13)
-      at TapGate.setState (node_modules/react/cjs/react.development.js:655:20)
-      at TapGate.handleTopUp (src/components/TapGate.jsx:83:22)
-
-    console.error
-      An update to TapGate inside a test was not wrapped in act(...).
-
-      When testing, code that causes React state updates should be wrapped into act(...):
-
-      act(() => {
-        /* fire events that update state */
-      });
-      /* assert on the output */
-
-      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act     
-
-      39 |                 const data = await response.json();
-      40 |                 const cardsArray = Array.isArray(data) ? data : [data];
-    > 41 |                 this.setState({ ownedCards: cardsArray });
-         |                      ^
-      42 |                 if (this.state.selectedCardType) {
-      43 |                     const freshData = cardsArray.find(c => c.cardType === this.state.selectedCardType);
-      44 |                     this.setState({ activeCardData: freshData });
-
-      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
-      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
-      at Object.enqueueSetState (node_modules/react-dom/cjs/react-dom-client.development.js:27212:13)
-      at TapGate.setState (node_modules/react/cjs/react.development.js:655:20)
-      at TapGate.fetchOwnedCards (src/components/TapGate.jsx:41:22)
-      at TapGate.handleTopUp (src/components/TapGate.jsx:84:17)
-
-    console.error
-      An update to TapGate inside a test was not wrapped in act(...).
-
-      When testing, code that causes React state updates should be wrapped into act(...):
-
-      act(() => {
-        /* fire events that update state */
-      });
-      /* assert on the output */
-
-      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act     
-
-      42 |                 if (this.state.selectedCardType) {
-      43 |                     const freshData = cardsArray.find(c => c.cardType === this.state.selectedCardType);
-    > 44 |                     this.setState({ activeCardData: freshData });
-         |                          ^
       45 |                 }
       46 |             }
-      47 |         } catch (err) { console.error("Fetch Error:", err); }
+    > 47 |         } catch (err) { console.error("Fetch Error:", err); }
+         |                                 ^
+      48 |     };
+      49 |
+      50 |     // --- UPDATED LOGIC FOR CARD SELECTION ---
 
-      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
-      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
-      at Object.enqueueSetState (node_modules/react-dom/cjs/react-dom-client.development.js:27212:13)
-      at TapGate.setState (node_modules/react/cjs/react.development.js:655:20)
-      at TapGate.fetchOwnedCards (src/components/TapGate.jsx:44:26)
-      at TapGate.handleTopUp (src/components/TapGate.jsx:84:17)
-
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
-  ● TapGate Component › selects owned STUDENT card
-
-    Unable to find an element with the text: Card Dashboard. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
-
-    Ignored nodes: comments, script, style
-    <body>
-      <div>
-        <div
-          class="tapgate-page tapgate-background"
-        >
-          <div
-            data-testid="navbar"
-          />
-          <div
-            class="tapgate-sidebar-container"
-          >
-            <div
-              data-testid="sidebar"
-            />
-            <div
-              class="tapgate-body-container"
-            >
-              <h3
-                class="tapgate-heading"
-              >
-                1. Select Card Type
-              </h3>
-              <div
-                class="tapgate-card-hub"
-              >
-                <div
-                  class="tapgate-hub-card active"
-                >
-                  <div
-                    class="tapgate-icon-circle student"
-                  >
-                    🎓
-                  </div>
-                  <h4>
-                    STUDENT
-                  </h4>
-                </div>
-                <div
-                  class="tapgate-hub-card "
-                >
-                  <div
-                    class="tapgate-icon-circle regular"
-                  >
-                    💼
-                  </div>
-                  <h4>
-                    REGULAR
-                  </h4>
-                </div>
-              </div>
-              <div
-                class="tapgate-fade-in"
-              >
-                <h3
-                  class="tapgate-heading"
-                >
-                  2. Card Dashboard
-                </h3>
-                <div
-                  class="tapgate-glass-card student"
-                >
-                  <div
-                    class="tapgate-chip"
-                  />
-                  <div
-                    class="tapgate-balance-info"
-                  >
-                    <label>
-                      Balance
-                    </label>
-                    <h2>
-                      $
-                      100.00
-                    </h2>
-                  </div>
-                  <button
-                    class="tapgate-topup-trigger"
-                  >
-                    + Top Up
-                  </button>
-                </div>
-                <h3
-                  class="tapgate-heading"
-                >
-                  3. Choose Route
-                </h3>
-                <div
-                  class="tapgate-route-grid"
-                >
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Blue Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Ameerpet
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Secunderabad
-                      </strong>
-                    </div>
-                    <p>
-                      4
-                       Stops •
-                      15 min
-                    </p>
-                  </div>
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Red Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Secunderabad
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Hitech City
-                      </strong>
-                    </div>
-                    <p>
-                      6
-                       Stops •
-                      20 min
-                    </p>
-                  </div>
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Green Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Hitech City
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Ameerpet
-                      </strong>
-                    </div>
-                    <p>
-                      3
-                       Stops •
-                      12 min
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="tapgate-modal-overlay"
-              >
-                <div
-                  class="tapgate-modal tapgate-scale-up"
-                >
-                  <button
-                    class="tapgate-close-x"
-                  >
-                    ×
-                  </button>
-                  <div
-                    class="tapgate-popup-content"
-                  >
-                    <div
-                      class="tapgate-popup-icon"
-                    >
-                      🎫
-                    </div>
-                    <h3>
-                      Card Required
-                    </h3>
-                    <p>
-                      You don't own a
-                      <strong>
-                        STUDENT
-                      </strong>
-                       card. Would you like to purchase one to start traveling?
-                    </p>
-                    <button
-                      class="tapgate-btn-action"
-                    >
-                      Go to Purchase Section
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
-
-      58 |     fireEvent.click(await screen.findByText("STUDENT"));
-      59 |
-    > 60 |     expect(await screen.findByText("Card Dashboard")).toBeInTheDocument();
-         |                         ^
-      61 |     expect(screen.getByText("$100.00")).toBeInTheDocument();
-      62 |   });
-      63 |
-
-      at waitForWrapper (node_modules/@testing-library/dom/dist/wait-for.js:163:27)
-      at findByText (node_modules/@testing-library/dom/dist/query-helpers.js:86:33)
-      at Object.<anonymous> (src/__tests__/TapGate.test.jsx:60:25)
-
-  ● TapGate Component › select route and tap & pay
-
-    Found multiple elements with the text: Ameerpet
-
-    Here are the matching elements:
-
-    Ignored nodes: comments, script, style
-    <strong>
-      Ameerpet
-    </strong>
-
-    Ignored nodes: comments, script, style
-    <strong>
-      Ameerpet
-    </strong>
-
-    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
-
-    Ignored nodes: comments, script, style
-    <body>
-      <div>
-        <div
-          class="tapgate-page tapgate-background"
-        >
-          <div
-            data-testid="navbar"
-          />
-          <div
-            class="tapgate-sidebar-container"
-          >
-            <div
-              data-testid="sidebar"
-            />
-            <div
-              class="tapgate-body-container"
-            >
-              <h3
-                class="tapgate-heading"
-              >
-                1. Select Card Type
-              </h3>
-              <div
-                class="tapgate-card-hub"
-              >
-                <div
-                  class="tapgate-hub-card active"
-                >
-                  <div
-                    class="tapgate-icon-circle student"
-                  >
-                    🎓
-                  </div>
-                  <h4>
-                    STUDENT
-                  </h4>
-                </div>
-                <div
-                  class="tapgate-hub-card "
-                >
-                  <div
-                    class="tapgate-icon-circle regular"
-                  >
-                    💼
-                  </div>
-                  <h4>
-                    REGULAR
-                  </h4>
-                </div>
-              </div>
-              <div
-                class="tapgate-fade-in"
-              >
-                <h3
-                  class="tapgate-heading"
-                >
-                  2. Card Dashboard
-                </h3>
-                <div
-                  class="tapgate-glass-card student"
-                >
-                  <div
-                    class="tapgate-chip"
-                  />
-                  <div
-                    class="tapgate-balance-info"
-                  >
-                    <label>
-                      Balance
-                    </label>
-                    <h2>
-                      $
-                      100.00
-                    </h2>
-                  </div>
-                  <button
-                    class="tapgate-topup-trigger"
-                  >
-                    + Top Up
-                  </button>
-                </div>
-                <h3
-                  class="tapgate-heading"
-                >
-                  3. Choose Route
-                </h3>
-                <div
-                  class="tapgate-route-grid"
-                >
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Blue Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Ameerpet
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Secunderabad
-                      </strong>
-                    </div>
-                    <p>
-                      4
-                       Stops •
-                      15 min
-                    </p>
-                  </div>
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Red Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Secunderabad
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Hitech City
-                      </strong>
-                    </div>
-                    <p>
-                      6
-                       Stops •
-                      20 min
-                    </p>
-                  </div>
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Green Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Hitech City
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Ameerpet
-                      </strong>
-                    </div>
-                    <p>
-                      3
-                       Stops •
-                      12 min
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="tapgate-modal-overlay"
-              >
-                <div
-                  class="tapgate-modal tapgate-scale-up"
-                >
-                  <button
-                    class="tapgate-close-x"
-                  >
-                    ×
-                  </button>
-                  <div
-                    class="tapgate-popup-content"
-                  >
-                    <div
-                      class="tapgate-popup-icon"
-                    >
-                      🎫
-                    </div>
-                    <h3>
-                      Card Required
-                    </h3>
-                    <p>
-                      You don't own a
-                      <strong>
-                        STUDENT
-                      </strong>
-                       card. Would you like to purchase one to start traveling?
-                    </p>
-                    <button
-                      class="tapgate-btn-action"
-                    >
-                      Go to Purchase Section
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
-
-      115 |     fireEvent.click(await screen.findByText("STUDENT"));
-      116 |
-    > 117 |     const route = await screen.findByText("Ameerpet");
-          |                                ^
-      118 |     fireEvent.click(route.closest(".tapgate-route-card"));
-      119 |
-      120 |     fireEvent.click(await screen.findByText("Tap & Pay"));
-
-      at waitForWrapper (node_modules/@testing-library/dom/dist/wait-for.js:163:27)
-      at findByText (node_modules/@testing-library/dom/dist/query-helpers.js:86:33)
-      at Object.<anonymous> (src/__tests__/TapGate.test.jsx:117:32)
-
-  ● TapGate Component › metroline onNewTrip resets journey
-
-    Found multiple elements with the text: Ameerpet
-
-    Here are the matching elements:
-
-    Ignored nodes: comments, script, style
-    <strong>
-      Ameerpet
-    </strong>
-
-    Ignored nodes: comments, script, style
-    <strong>
-      Ameerpet
-    </strong>
-
-    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
-
-    Ignored nodes: comments, script, style
-    <body>
-      <div>
-        <div
-          class="tapgate-page tapgate-background"
-        >
-          <div
-            data-testid="navbar"
-          />
-          <div
-            class="tapgate-sidebar-container"
-          >
-            <div
-              data-testid="sidebar"
-            />
-            <div
-              class="tapgate-body-container"
-            >
-              <h3
-                class="tapgate-heading"
-              >
-                1. Select Card Type
-              </h3>
-              <div
-                class="tapgate-card-hub"
-              >
-                <div
-                  class="tapgate-hub-card active"
-                >
-                  <div
-                    class="tapgate-icon-circle student"
-                  >
-                    🎓
-                  </div>
-                  <h4>
-                    STUDENT
-                  </h4>
-                </div>
-                <div
-                  class="tapgate-hub-card "
-                >
-                  <div
-                    class="tapgate-icon-circle regular"
-                  >
-                    💼
-                  </div>
-                  <h4>
-                    REGULAR
-                  </h4>
-                </div>
-              </div>
-              <div
-                class="tapgate-fade-in"
-              >
-                <h3
-                  class="tapgate-heading"
-                >
-                  2. Card Dashboard
-                </h3>
-                <div
-                  class="tapgate-glass-card student"
-                >
-                  <div
-                    class="tapgate-chip"
-                  />
-                  <div
-                    class="tapgate-balance-info"
-                  >
-                    <label>
-                      Balance
-                    </label>
-                    <h2>
-                      $
-                      100.00
-                    </h2>
-                  </div>
-                  <button
-                    class="tapgate-topup-trigger"
-                  >
-                    + Top Up
-                  </button>
-                </div>
-                <h3
-                  class="tapgate-heading"
-                >
-                  3. Choose Route
-                </h3>
-                <div
-                  class="tapgate-route-grid"
-                >
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Blue Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Ameerpet
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Secunderabad
-                      </strong>
-                    </div>
-                    <p>
-                      4
-                       Stops •
-                      15 min
-                    </p>
-                  </div>
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Red Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Secunderabad
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Hitech City
-                      </strong>
-                    </div>
-                    <p>
-                      6
-                       Stops •
-                      20 min
-                    </p>
-                  </div>
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Green Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Hitech City
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Ameerpet
-                      </strong>
-                    </div>
-                    <p>
-                      3
-                       Stops •
-                      12 min
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="tapgate-modal-overlay"
-              >
-                <div
-                  class="tapgate-modal tapgate-scale-up"
-                >
-                  <button
-                    class="tapgate-close-x"
-                  >
-                    ×
-                  </button>
-                  <div
-                    class="tapgate-popup-content"
-                  >
-                    <div
-                      class="tapgate-popup-icon"
-                    >
-                      🎫
-                    </div>
-                    <h3>
-                      Card Required
-                    </h3>
-                    <p>
-                      You don't own a
-                      <strong>
-                        STUDENT
-                      </strong>
-                       card. Would you like to purchase one to start traveling?
-                    </p>
-                    <button
-                      class="tapgate-btn-action"
-                    >
-                      Go to Purchase Section
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
-
-      136 |     fireEvent.click(await screen.findByText("STUDENT"));
-      137 |
-    > 138 |     const route = await screen.findByText("Ameerpet");
-          |                                ^
-      139 |     fireEvent.click(route.closest(".tapgate-route-card"));
-      140 |
-      141 |     fireEvent.click(await screen.findByText("Tap & Pay"));
-
-      at waitForWrapper (node_modules/@testing-library/dom/dist/wait-for.js:163:27)
-      at findByText (node_modules/@testing-library/dom/dist/query-helpers.js:86:33)
-      at Object.<anonymous> (src/__tests__/TapGate.test.jsx:138:32)
-
-  ● TapGate Component › handles API failure gracefully
-
-    Found multiple elements with the text: Ameerpet
-
-    Here are the matching elements:
-
-    Ignored nodes: comments, script, style
-    <strong>
-      Ameerpet
-    </strong>
-
-    Ignored nodes: comments, script, style
-    <strong>
-      Ameerpet
-    </strong>
-
-    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
-
-    Ignored nodes: comments, script, style
-    <body>
-      <div>
-        <div
-          class="tapgate-page tapgate-background"
-        >
-          <div
-            data-testid="navbar"
-          />
-          <div
-            class="tapgate-sidebar-container"
-          >
-            <div
-              data-testid="sidebar"
-            />
-            <div
-              class="tapgate-body-container"
-            >
-              <h3
-                class="tapgate-heading"
-              >
-                1. Select Card Type
-              </h3>
-              <div
-                class="tapgate-card-hub"
-              >
-                <div
-                  class="tapgate-hub-card active"
-                >
-                  <div
-                    class="tapgate-icon-circle student"
-                  >
-                    🎓
-                  </div>
-                  <h4>
-                    STUDENT
-                  </h4>
-                </div>
-                <div
-                  class="tapgate-hub-card "
-                >
-                  <div
-                    class="tapgate-icon-circle regular"
-                  >
-                    💼
-                  </div>
-                  <h4>
-                    REGULAR
-                  </h4>
-                </div>
-              </div>
-              <div
-                class="tapgate-fade-in"
-              >
-                <h3
-                  class="tapgate-heading"
-                >
-                  2. Card Dashboard
-                </h3>
-                <div
-                  class="tapgate-glass-card student"
-                >
-                  <div
-                    class="tapgate-chip"
-                  />
-                  <div
-                    class="tapgate-balance-info"
-                  >
-                    <label>
-                      Balance
-                    </label>
-                    <h2>
-                      $
-                      100.00
-                    </h2>
-                  </div>
-                  <button
-                    class="tapgate-topup-trigger"
-                  >
-                    + Top Up
-                  </button>
-                </div>
-                <h3
-                  class="tapgate-heading"
-                >
-                  3. Choose Route
-                </h3>
-                <div
-                  class="tapgate-route-grid"
-                >
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Blue Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Ameerpet
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Secunderabad
-                      </strong>
-                    </div>
-                    <p>
-                      4
-                       Stops •
-                      15 min
-                    </p>
-                  </div>
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Red Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Secunderabad
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Hitech City
-                      </strong>
-                    </div>
-                    <p>
-                      6
-                       Stops •
-                      20 min
-                    </p>
-                  </div>
-                  <div
-                    class="tapgate-route-card "
-                  >
-                    <div
-                      class="tapgate-route-header"
-                    >
-                      <span
-                        class="tapgate-route-line-tag"
-                      >
-                        Green Line
-                      </span>
-                      <span
-                        class="tapgate-route-price"
-                      >
-                        $
-                        4
-                      </span>
-                    </div>
-                    <div
-                      class="tapgate-route-path"
-                    >
-                      <strong>
-                        Hitech City
-                      </strong>
-                      <div
-                        class="tapgate-path-line"
-                      />
-                      <strong>
-                        Ameerpet
-                      </strong>
-                    </div>
-                    <p>
-                      3
-                       Stops •
-                      12 min
-                    </p>
-                  </div>
-                </div>
-              </div>
-              <div
-                class="tapgate-modal-overlay"
-              >
-                <div
-                  class="tapgate-modal tapgate-scale-up"
-                >
-                  <button
-                    class="tapgate-close-x"
-                  >
-                    ×
-                  </button>
-                  <div
-                    class="tapgate-popup-content"
-                  >
-                    <div
-                      class="tapgate-popup-icon"
-                    >
-                      🎫
-                    </div>
-                    <h3>
-                      Card Required
-                    </h3>
-                    <p>
-                      You don't own a
-                      <strong>
-                        STUDENT
-                      </strong>
-                       card. Would you like to purchase one to start traveling?
-                    </p>
-                    <button
-                      class="tapgate-btn-action"
-                    >
-                      Go to Purchase Section
-                    </button>
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
-
-      157 |     fireEvent.click(await screen.findByText("STUDENT"));
-      158 |
-    > 159 |     const route = await screen.findByText("Ameerpet");
-          |                                ^
-      160 |     fireEvent.click(route.closest(".tapgate-route-card"));
-      161 |
-      162 |     fireEvent.click(await screen.findByText("Tap & Pay"));
-
-      at waitForWrapper (node_modules/@testing-library/dom/dist/wait-for.js:163:27)
-      at findByText (node_modules/@testing-library/dom/dist/query-helpers.js:86:33)
-      at Object.<anonymous> (src/__tests__/TapGate.test.jsx:159:32)
-
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/TapGate.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
- PASS  src/__tests__/Navbar.test.jsx
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
-  ● Console
+      at TapGate.fetchOwnedCards (src/components/TapGate.jsx:47:33)
 
     console.error
-      Failed to fetch user details
+      Fetch Error: TypeError: Cannot read properties of undefined (reading 'ok')
+          at TapGate.fetchOwnedCards (D:\frontend_final\frontend\src\components\TapGate.jsx:38:26)
 
-      25 |
-      26 |                 } else {
-    > 27 |                     console.error("Failed to fetch user details");
-         |                             ^
-      28 |                 }
-      29 |             } catch (error) {
-      30 |                 console.error("Error fetching user details:", error);
+      45 |                 }
+      46 |             }
+    > 47 |         } catch (err) { console.error("Fetch Error:", err); }
+         |                                 ^
+      48 |     };
+      49 |
+      50 |     // --- UPDATED LOGIC FOR CARD SELECTION ---
 
-      at fetchUserDetails (src/components/Navbar.jsx:27:29)
-
-    console.error
-      Error fetching user details: Error: Network error
-          at Object.<anonymous> (D:\frontend_final\frontend\src\__tests__\Navbar.test.jsx:67:37)
-          at Promise.then.completed (D:\frontend_final\frontend\node_modules\jest-circus\build\utils.js:391:28)
-          at new Promise (<anonymous>)
-          at callAsyncCircusFn (D:\frontend_final\frontend\node_modules\jest-circus\build\utils.js:316:10)
-          at _callCircusTest (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:218:40)
-          at _runTest (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:155:3)
-          at _runTestsForDescribeBlock (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:66:9)
-          at _runTestsForDescribeBlock (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:60:9)
-          at run (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:25:3)
-          at runAndTransformResultsToJestFormat (D:\frontend_final\frontend\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
-          at jestAdapter (D:\frontend_final\frontend\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
-          at runTestInternal (D:\frontend_final\frontend\node_modules\jest-runner\build\runTest.js:389:16)
-          at runTest (D:\frontend_final\frontend\node_modules\jest-runner\build\runTest.js:475:34)
-          at Object.worker (D:\frontend_final\frontend\node_modules\jest-runner\build\testWorker.js:133:12)
-
-      28 |                 }
-      29 |             } catch (error) {
-    > 30 |                 console.error("Error fetching user details:", error);
-         |                         ^
-      31 |             }
-      32 |         };
-      33 |
-
-      at fetchUserDetails (src/components/Navbar.jsx:30:25)
-
-    console.error
-      Error fetching user details: TypeError: Cannot read properties of undefined (reading 'ok')
-          at fetchUserDetails (D:\frontend_final\frontend\src\components\Navbar.jsx:22:30)
-
-      28 |                 }
-      29 |             } catch (error) {
-    > 30 |                 console.error("Error fetching user details:", error);
-         |                         ^
-      31 |             }
-      32 |         };
-      33 |
-
-      at fetchUserDetails (src/components/Navbar.jsx:30:25)
+      at TapGate.fetchOwnedCards (src/components/TapGate.jsx:47:33)
 
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
  PASS  src/__tests__/Register.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
   ● Console
 
     console.warn
@@ -2144,32 +494,32 @@ PS D:\frontend_final\frontend> npm test -- --coverage
 
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
- PASS  src/__tests__/Sidebar.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
+ PASS  src/__tests__/Login.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
   ● Console
 
     console.warn
       ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
 
-       6 | describe("Sidebar Component", () => {
-       7 |     const renderSidebar = (initialRoute = "/TapGate") => {
-    >  8 |         render(
-         |               ^
-       9 |             <MemoryRouter initialEntries={[initialRoute]}>
-      10 |                 <Sidebar />
-      11 |             </MemoryRouter>
+       7 |
+       8 | const setup = () => {
+    >  9 |   const utils = render(
+         |                       ^
+      10 |       <BrowserRouter>
+      11 |         <Login />
+      12 |       </BrowserRouter>
 
       at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
       at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
-      at logV6DeprecationWarnings (node_modules/react-router/lib/deprecations.ts:26:5)
-      at node_modules/react-router/lib/components.tsx:257:25
+      at Object.logV6DeprecationWarnings [as UNSAFE_logV6DeprecationWarnings] (node_modules/react-router/lib/deprecations.ts:26:5)
+      at node_modules/react-router-dom/index.tsx:816:25
       at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
       at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
       at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
@@ -2184,24 +534,24 @@ PS D:\frontend_final\frontend> npm test -- --coverage
       at node_modules/@testing-library/react/dist/act-compat.js:46:25
       at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
       at render (node_modules/@testing-library/react/dist/pure.js:291:10)
-      at renderSidebar (src/__tests__/Sidebar.test.jsx:8:15)
-      at Object.<anonymous> (src/__tests__/Sidebar.test.jsx:16:9)
+      at setup (src/__tests__/Login.test.jsx:9:23)
+      at Object.<anonymous> (src/__tests__/Login.test.jsx:34:5)
 
     console.warn
       ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
 
-       6 | describe("Sidebar Component", () => {
-       7 |     const renderSidebar = (initialRoute = "/TapGate") => {
-    >  8 |         render(
-         |               ^
-       9 |             <MemoryRouter initialEntries={[initialRoute]}>
-      10 |                 <Sidebar />
-      11 |             </MemoryRouter>
+       7 |
+       8 | const setup = () => {
+    >  9 |   const utils = render(
+         |                       ^
+      10 |       <BrowserRouter>
+      11 |         <Login />
+      12 |       </BrowserRouter>
 
       at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
       at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
-      at logV6DeprecationWarnings (node_modules/react-router/lib/deprecations.ts:37:5)
-      at node_modules/react-router/lib/components.tsx:257:25
+      at Object.logV6DeprecationWarnings [as UNSAFE_logV6DeprecationWarnings] (node_modules/react-router/lib/deprecations.ts:37:5)
+      at node_modules/react-router-dom/index.tsx:816:25
       at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
       at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
       at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
@@ -2216,92 +566,23 @@ PS D:\frontend_final\frontend> npm test -- --coverage
       at node_modules/@testing-library/react/dist/act-compat.js:46:25
       at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
       at render (node_modules/@testing-library/react/dist/pure.js:291:10)
-      at renderSidebar (src/__tests__/Sidebar.test.jsx:8:15)
-      at Object.<anonymous> (src/__tests__/Sidebar.test.jsx:16:9)
+      at setup (src/__tests__/Login.test.jsx:9:23)
+      at Object.<anonymous> (src/__tests__/Login.test.jsx:34:5)
 
 
  RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
- PASS  src/__tests__/ProtectedRoute.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/Register.test.jsx
+ RUNS  src/__tests__/Login.test.jsx
 
  RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
  RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
-  ● Console
-
-    console.warn
-      ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
-
-      10 |
-      11 |     test("redirects to login when token is missing", () => {
-    > 12 |         render(
-         |               ^
-      13 |             <MemoryRouter initialEntries={["/protected"]}>
-      14 |                 <Routes>
-      15 |                     <Route element={<ProtectedRoute />}>
-
-      at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
-      at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
-      at logV6DeprecationWarnings (node_modules/react-router/lib/deprecations.ts:26:5)
-      at node_modules/react-router/lib/components.tsx:257:25
-      at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
-      at commitHookPassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
-      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
-      at recursivelyTraversePassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:15439:11)
-      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15519:11)
-      at flushPassiveEffects (node_modules/react-dom/cjs/react-dom-client.development.js:18432:9)
-      at node_modules/react-dom/cjs/react-dom-client.development.js:17923:15
-      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
-      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
-      at node_modules/@testing-library/react/dist/act-compat.js:46:25
-      at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
-      at render (node_modules/@testing-library/react/dist/pure.js:291:10)
-      at Object.<anonymous> (src/__tests__/ProtectedRoute.test.jsx:12:15)
-
-    console.warn
-      ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
-
-      10 |
-      11 |     test("redirects to login when token is missing", () => {
-    > 12 |         render(
-         |               ^
-      13 |             <MemoryRouter initialEntries={["/protected"]}>
-      14 |                 <Routes>
-      15 |                     <Route element={<ProtectedRoute />}>
-
-      at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
-      at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
-      at logV6DeprecationWarnings (node_modules/react-router/lib/deprecations.ts:37:5)
-      at node_modules/react-router/lib/components.tsx:257:25
-      at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
-      at commitHookPassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
-      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
-      at recursivelyTraversePassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:15439:11)
-      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15519:11)
-      at flushPassiveEffects (node_modules/react-dom/cjs/react-dom-client.development.js:18432:9)
-      at node_modules/react-dom/cjs/react-dom-client.development.js:17923:15
-      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
-      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
-      at node_modules/@testing-library/react/dist/act-compat.js:46:25
-      at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
-      at render (node_modules/@testing-library/react/dist/pure.js:291:10)
-      at Object.<anonymous> (src/__tests__/ProtectedRoute.test.jsx:12:15)
-
-
- RUNS  src/__tests__/BuyCard.test.jsx
- RUNS  src/__tests__/ProtectedRoute.test.jsx
- RUNS  src/__tests__/MyCards.test.jsx
- RUNS  src/__tests__/Sidebar.test.jsx
-
  PASS  src/__tests__/MyCards.test.jsx
 
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/ProtectedRoute.test.jsx
   ● Console
 
     console.error
@@ -2360,71 +641,227 @@ PS D:\frontend_final\frontend> npm test -- --coverage
       at Home.fetchCardDetails (src/components/MyCards.jsx:43:21)
 
 
- PASS  src/__tests__/MyCardA.test.jsx
- FAIL  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ RUNS  src/__tests__/ProtectedRoute.test.jsx
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ PASS  src/__tests__/Navbar.test.jsx
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
   ● Console
 
     console.error
-      An update to BuyCard inside a test was not wrapped in act(...).
+      Failed to fetch user details
 
-      When testing, code that causes React state updates should be wrapped into act(...):
+      25 |
+      26 |                 } else {
+    > 27 |                     console.error("Failed to fetch user details");
+         |                             ^
+      28 |                 }
+      29 |             } catch (error) {
+      30 |                 console.error("Error fetching user details:", error);
 
-      act(() => {
-        /* fire events that update state */
-      });
-      /* assert on the output */
-
-      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act     
-
-      45 |             });
-      46 |             if (response.status === 404) {
-    > 47 |                 this.setState({ ownedCards: [] });
-         |                      ^
-      48 |                 return;
-      49 |             }
-      50 |             const data = await response.json();
-
-      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
-      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
-      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
-      at Object.enqueueSetState (node_modules/react-dom/cjs/react-dom-client.development.js:27212:13)
-      at BuyCard.setState (node_modules/react/cjs/react.development.js:655:20)
-      at BuyCard.fetchMyCardDetails (src/components/BuyCard.jsx:47:22)
+      at fetchUserDetails (src/components/Navbar.jsx:27:29)
 
     console.error
-      An update to BuyCard inside a test was not wrapped in act(...).
+      Error fetching user details: Error: Network error
+          at Object.<anonymous> (D:\frontend_final\frontend\src\__tests__\Navbar.test.jsx:67:37)
+          at Promise.then.completed (D:\frontend_final\frontend\node_modules\jest-circus\build\utils.js:391:28)
+          at new Promise (<anonymous>)
+          at callAsyncCircusFn (D:\frontend_final\frontend\node_modules\jest-circus\build\utils.js:316:10)
+          at _callCircusTest (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:218:40)
+          at _runTest (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:155:3)
+          at _runTestsForDescribeBlock (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:66:9)
+          at _runTestsForDescribeBlock (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:60:9)
+          at run (D:\frontend_final\frontend\node_modules\jest-circus\build\run.js:25:3)
+          at runAndTransformResultsToJestFormat (D:\frontend_final\frontend\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapterInit.js:170:21)
+          at jestAdapter (D:\frontend_final\frontend\node_modules\jest-circus\build\legacy-code-todo-rewrite\jestAdapter.js:82:19)
+          at runTestInternal (D:\frontend_final\frontend\node_modules\jest-runner\build\runTest.js:389:16)
+          at runTest (D:\frontend_final\frontend\node_modules\jest-runner\build\runTest.js:475:34)
+          at Object.worker (D:\frontend_final\frontend\node_modules\jest-runner\build\testWorker.js:133:12)
 
-      When testing, code that causes React state updates should be wrapped into act(...):
+      28 |                 }
+      29 |             } catch (error) {
+    > 30 |                 console.error("Error fetching user details:", error);
+         |                         ^
+      31 |             }
+      32 |         };
+      33 |
 
-      act(() => {
-        /* fire events that update state */
-      });
-      /* assert on the output */
+      at fetchUserDetails (src/components/Navbar.jsx:30:25)
 
-      This ensures that you're testing the behavior the user would see in the browser. Learn more at https://react.dev/link/wrap-tests-with-act     
+    console.error
+      Error fetching user details: TypeError: Cannot read properties of undefined (reading 'ok')
+          at fetchUserDetails (D:\frontend_final\frontend\src\components\Navbar.jsx:22:30)
 
-      45 |             });
-      46 |             if (response.status === 404) {
-    > 47 |                 this.setState({ ownedCards: [] });
-         |                      ^
-      48 |                 return;
-      49 |             }
-      50 |             const data = await response.json();
+      28 |                 }
+      29 |             } catch (error) {
+    > 30 |                 console.error("Error fetching user details:", error);
+         |                         ^
+      31 |             }
+      32 |         };
+      33 |
 
-      at node_modules/react-dom/cjs/react-dom-client.development.js:18758:19
+      at fetchUserDetails (src/components/Navbar.jsx:30:25)
+
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+ PASS  src/__tests__/Sidebar.test.jsx
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+  ● Console
+
+    console.warn
+      ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+
+       6 | describe("Sidebar Component", () => {
+       7 |     const renderSidebar = (initialRoute = "/TapGate") => {
+    >  8 |         render(
+         |               ^
+       9 |             <MemoryRouter initialEntries={[initialRoute]}>
+      10 |                 <Sidebar />
+      11 |             </MemoryRouter>
+
+      at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
+      at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
+      at logV6DeprecationWarnings (node_modules/react-router/lib/deprecations.ts:26:5)
+      at node_modules/react-router/lib/components.tsx:257:25
+      at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
       at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
-      at warnIfUpdatesNotWrappedWithActDEV (node_modules/react-dom/cjs/react-dom-client.development.js:18757:9)
-      at scheduleUpdateOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:16409:11)
-      at Object.enqueueSetState (node_modules/react-dom/cjs/react-dom-client.development.js:27212:13)
-      at BuyCard.setState (node_modules/react/cjs/react.development.js:655:20)
-      at BuyCard.fetchMyCardDetails (src/components/BuyCard.jsx:47:22)
+      at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+      at commitHookPassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:15439:11)
+      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15519:11)
+      at flushPassiveEffects (node_modules/react-dom/cjs/react-dom-client.development.js:18432:9)
+      at node_modules/react-dom/cjs/react-dom-client.development.js:17923:15
+      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
+      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
+      at node_modules/@testing-library/react/dist/act-compat.js:46:25
+      at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
+      at render (node_modules/@testing-library/react/dist/pure.js:291:10)
+      at renderSidebar (src/__tests__/Sidebar.test.jsx:8:15)
+      at Object.<anonymous> (src/__tests__/Sidebar.test.jsx:16:9)
 
+    console.warn
+      ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+       6 | describe("Sidebar Component", () => {
+       7 |     const renderSidebar = (initialRoute = "/TapGate") => {
+    >  8 |         render(
+         |               ^
+       9 |             <MemoryRouter initialEntries={[initialRoute]}>
+      10 |                 <Sidebar />
+      11 |             </MemoryRouter>
+
+      at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
+      at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
+      at logV6DeprecationWarnings (node_modules/react-router/lib/deprecations.ts:37:5)
+      at node_modules/react-router/lib/components.tsx:257:25
+      at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+      at commitHookPassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:15439:11)
+      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15519:11)
+      at flushPassiveEffects (node_modules/react-dom/cjs/react-dom-client.development.js:18432:9)
+      at node_modules/react-dom/cjs/react-dom-client.development.js:17923:15
+      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
+      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
+      at node_modules/@testing-library/react/dist/act-compat.js:46:25
+      at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
+      at render (node_modules/@testing-library/react/dist/pure.js:291:10)
+      at renderSidebar (src/__tests__/Sidebar.test.jsx:8:15)
+      at Object.<anonymous> (src/__tests__/Sidebar.test.jsx:16:9)
+
+
+ RUNS  src/__tests__/BuyCard.test.jsx
+ RUNS  src/__tests__/Navbar.test.jsx
+
+ PASS  src/__tests__/MyCardA.test.jsx
+
+ PASS  src/__tests__/ProtectedRoute.test.jsx
+
+  ● Console
+
+    console.warn
+      ⚠️ React Router Future Flag Warning: React Router will begin wrapping state updates in `React.startTransition` in v7. You can use the `v7_startTransition` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_starttransition.
+
+      10 |
+      11 |     test("redirects to login when token is missing", () => {
+    > 12 |         render(
+         |               ^
+      13 |             <MemoryRouter initialEntries={["/protected"]}>
+      14 |                 <Routes>
+      15 |                     <Route element={<ProtectedRoute />}>
+
+      at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
+      at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
+      at logV6DeprecationWarnings (node_modules/react-router/lib/deprecations.ts:26:5)
+      at node_modules/react-router/lib/components.tsx:257:25
+      at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+      at commitHookPassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:15439:11)
+      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15519:11)
+      at flushPassiveEffects (node_modules/react-dom/cjs/react-dom-client.development.js:18432:9)
+      at node_modules/react-dom/cjs/react-dom-client.development.js:17923:15
+      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
+      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
+      at node_modules/@testing-library/react/dist/act-compat.js:46:25
+      at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
+      at render (node_modules/@testing-library/react/dist/pure.js:291:10)
+      at Object.<anonymous> (src/__tests__/ProtectedRoute.test.jsx:12:15)
+
+    console.warn
+      ⚠️ React Router Future Flag Warning: Relative route resolution within Splat routes is changing in v7. You can use the `v7_relativeSplatPath` future flag to opt-in early. For more information, see https://reactrouter.com/v6/upgrading/future#v7_relativesplatpath.
+
+      10 |
+      11 |     test("redirects to login when token is missing", () => {
+    > 12 |         render(
+         |               ^
+      13 |             <MemoryRouter initialEntries={["/protected"]}>
+      14 |                 <Routes>
+      15 |                     <Route element={<ProtectedRoute />}>
+
+      at warnOnce (node_modules/react-router/lib/deprecations.ts:9:13)
+      at logDeprecation (node_modules/react-router/lib/deprecations.ts:14:3)
+      at logV6DeprecationWarnings (node_modules/react-router/lib/deprecations.ts:37:5)
+      at node_modules/react-router/lib/components.tsx:257:25
+      at Object.react_stack_bottom_frame (node_modules/react-dom/cjs/react-dom-client.development.js:25989:20)
+      at runWithFiberInDEV (node_modules/react-dom/cjs/react-dom-client.development.js:874:13)
+      at commitHookEffectListMount (node_modules/react-dom/cjs/react-dom-client.development.js:13249:29)
+      at commitHookPassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:13336:11)
+      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15484:13)
+      at recursivelyTraversePassiveMountEffects (node_modules/react-dom/cjs/react-dom-client.development.js:15439:11)
+      at commitPassiveMountOnFiber (node_modules/react-dom/cjs/react-dom-client.development.js:15519:11)
+      at flushPassiveEffects (node_modules/react-dom/cjs/react-dom-client.development.js:18432:9)
+      at node_modules/react-dom/cjs/react-dom-client.development.js:17923:15
+      at flushActQueue (node_modules/react/cjs/react.development.js:590:34)
+      at Object.<anonymous>.process.env.NODE_ENV.exports.act (node_modules/react/cjs/react.development.js:884:10)
+      at node_modules/@testing-library/react/dist/act-compat.js:46:25
+      at renderRoot (node_modules/@testing-library/react/dist/pure.js:189:26)
+      at render (node_modules/@testing-library/react/dist/pure.js:291:10)
+      at Object.<anonymous> (src/__tests__/ProtectedRoute.test.jsx:12:15)
+
+
+ FAIL  src/__tests__/BuyCard.test.jsx (5.421 s)
   ● BuyCard Component › blocks purchase if card already owned
-                                                                                                                                                    
-    Unable to find an element with the text: Purchase Blocked. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.                                                                     
-                                                                                                                                                    
-    Ignored nodes: comments, script, style                                                                                                          
+
+    Unable to find an element with the text: /Purchase Blocked/i. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+
+    Ignored nodes: comments, script, style
     <body>
       <div>
         <div
@@ -2621,21 +1058,39 @@ PS D:\frontend_final\frontend> npm test -- --coverage
       </div>
     </body>
 
-       95 |     fireEvent.click(screen.getByText("COMPLETE PURCHASE"));
-       96 |
-    >  97 |     expect(await screen.findByText("Purchase Blocked"))
-          |                         ^
-       98 |         .toBeInTheDocument();
-       99 |     expect(screen.getByText(/already own a STUDENT/)).toBeInTheDocument();
-      100 |   });
+      101 |
+      102 |     expect(
+    > 103 |         await screen.findByText(/Purchase Blocked/i)
+          |                      ^
+      104 |     ).toBeInTheDocument();
+      105 |
+      106 |     expect(
 
       at waitForWrapper (node_modules/@testing-library/dom/dist/wait-for.js:163:27)
       at findByText (node_modules/@testing-library/dom/dist/query-helpers.js:86:33)
-      at Object.<anonymous> (src/__tests__/BuyCard.test.jsx:97:25)
+      at Object.<anonymous> (src/__tests__/BuyCard.test.jsx:103:22)
 
   ● BuyCard Component › successful card purchase flow
 
-    TestingLibraryElementError: Unable to find an element with the text: You successfully purchased the card. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
+    Found multiple elements with the text: /Success/i
+
+    Here are the matching elements:
+
+    Ignored nodes: comments, script, style
+    <h3
+      class="text-green"
+    >
+      Success
+    </h3>
+
+    Ignored nodes: comments, script, style
+    <p
+      class="success-text"
+    >
+      You successfully purchased the card, you can use it now.
+    </p>
+
+    (If this is intentional, then use the `*AllBy*` variant of the query (like `queryAllByText`, `getAllByText`, or `findAllByText`)).
 
     Ignored nodes: comments, script, style
     <body>
@@ -2863,256 +1318,59 @@ PS D:\frontend_final\frontend> npm test -- --coverage
       </div>
     </body>
 
-      131 |
-      132 |     expect(await screen.findByText("Success")).toBeInTheDocument();
-    > 133 |     expect(screen.getByText("You successfully purchased the card"))
-          |                   ^
-      134 |         .toBeInTheDocument();
-      135 |   });
-      136 |
-
-      at Object.getElementError (node_modules/@testing-library/dom/dist/config.js:37:19)
-      at node_modules/@testing-library/dom/dist/query-helpers.js:76:38
-      at node_modules/@testing-library/dom/dist/query-helpers.js:52:17
-      at getByText (node_modules/@testing-library/dom/dist/query-helpers.js:95:19)
-      at Object.<anonymous> (src/__tests__/BuyCard.test.jsx:133:19)
-
-  ● BuyCard Component › popup close button works
-
-    Unable to find an element with the text: ✕. This could be because the text is broken up by multiple elements. In this case, you can provide a function for your text matcher to make your matcher more flexible.
-
-    Ignored nodes: comments, script, style
-    <body>
-      <div>
-        <div
-          class="home-page buycard-page"
-        >
-          <div
-            data-testid="navbar"
-          />
-          <div
-            class="Sidebarcontainer"
-          >
-            <div
-              data-testid="sidebar"
-            />
-            <div
-              class="buybodycontainer"
-            >
-              <div
-                class="header-section"
-              >
-                <h2
-                  class="page-title"
-                >
-                  Buy Your Metro Pass
-                </h2>
-                <p
-                  class="page-subtitle"
-                >
-                  Smart, fast and secure way to travel every day
-                </p>
-              </div>
-              <div
-                class="typestobuycard"
-              >
-                <div
-                  class="metro-card active"
-                >
-                  <div
-                    class="status-badge active"
-                  >
-                    ACTIVE
-                  </div>
-                  <div
-                    class="chip-icon"
-                  />
-                  <h3>
-                    Student Metro Card
-                  </h3>
-                  <p>
-                    Perfect for daily commuters
-                  </p>
-                  <ul>
-                    <li>
-                      Card Price : $5
-                    </li>
-                    <li>
-                      Min Wallet : $60
-                    </li>
-                    <li>
-                      Trip cost : $4
-                    </li>
-                    <li>
-                      Card Validity : 60 days
-                    </li>
-                  </ul>
-                  <h4>
-                    Total price : $65
-                  </h4>
-                </div>
-                <div
-                  class="metro-card "
-                >
-                  <div
-                    class="chip-icon"
-                  />
-                  <h3>
-                    Regular Metro Card
-                  </h3>
-                  <p>
-                    Perfect for daily commuters
-                  </p>
-                  <ul>
-                    <li>
-                      Card Price : $5
-                    </li>
-                    <li>
-                      Min Wallet : $60
-                    </li>
-                    <li>
-                      Trip cost : $5
-                    </li>
-                    <li>
-                      Card Validity : 60 days
-                    </li>
-                  </ul>
-                  <h4>
-                    Total price : $65
-                  </h4>
-                </div>
-              </div>
-              <form
-                class="buyCardForm"
-              >
-                <h3
-                  class="purchase-title"
-                >
-                  Secure Checkout
-                </h3>
-                <label>
-                  Payment Method
-                </label>
-                <div
-                  class="method-grid"
-                >
-                  <div
-                    class="method-option selected"
-                  >
-                    CREDIT
-                  </div>
-                  <div
-                    class="method-option "
-                  >
-                    DEBIT
-                  </div>
-                  <div
-                    class="method-option "
-                  >
-                    UPI
-                  </div>
-                </div>
-                <label>
-                  Cardholder Name
-                </label>
-                <input
-                  class="inputboxbuysection"
-                  placeholder="FULL NAME"
-                  value=""
-                />
-                <label>
-                  Card Number
-                </label>
-                <input
-                  class="inputboxbuysection"
-                  maxlength="16"
-                  placeholder="0000 0000 0000 0000"
-                  value=""
-                />
-                <div
-                  class="form-row"
-                >
-                  <div
-                    class="input-group"
-                  >
-                    <label>
-                      Expiry
-                    </label>
-                    <input
-                      class="inputboxbuysection"
-                      maxlength="5"
-                      placeholder="MM/YY"
-                      value=""
-                    />
-                  </div>
-                  <div
-                    class="input-group"
-                  >
-                    <label>
-                      CVV
-                    </label>
-                    <input
-                      class="inputboxbuysection"
-                      maxlength="3"
-                      placeholder="***"
-                      type="password"
-                      value=""
-                    />
-                  </div>
-                </div>
-                <p
-                  class="form-error"
-                >
-                  ⚠️ Please fill all the details
-                </p>
-                <button
-                  class="btnpurchase"
-                  type="submit"
-                >
-                  COMPLETE PURCHASE
-                </button>
-              </form>
-            </div>
-          </div>
-        </div>
-      </div>
-    </body>
-
-      176 |     fireEvent.click(screen.getByText("COMPLETE PURCHASE"));
-      177 |
-    > 178 |     const closeBtn = await screen.findByText("✕");
-          |                                   ^
-      179 |     fireEvent.click(closeBtn);
-      180 |
-      181 |     expect(screen.queryByText("Purchase Blocked")).not.toBeInTheDocument();
+      140 |     fireEvent.click(screen.getByText(/Complete Purchase/i));
+      141 |
+    > 142 |     expect(await screen.findByText(/Success/i)).toBeInTheDocument();
+          |                         ^
+      143 |
+      144 |     expect(
+      145 |         screen.getByText(/successfully purchased the card/i)
 
       at waitForWrapper (node_modules/@testing-library/dom/dist/wait-for.js:163:27)
       at findByText (node_modules/@testing-library/dom/dist/query-helpers.js:86:33)
-      at Object.<anonymous> (src/__tests__/BuyCard.test.jsx:178:35)
+      at Object.<anonymous> (src/__tests__/BuyCard.test.jsx:142:25)
 
----------------------|---------|----------|---------|---------|-------------------------
-File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s       
----------------------|---------|----------|---------|---------|-------------------------
-All files            |   87.98 |    76.57 |   84.21 |   89.45 |                         
- src                 |     100 |      100 |     100 |     100 |                         
-  App.js             |     100 |      100 |     100 |     100 |                         
- src/components      |   87.93 |    76.57 |      84 |    89.4 |                         
-  BuyCard.jsx        |   84.74 |    77.08 |   76.19 |   87.03 | 37,54,82-87,148,219-260
-  Login.jsx          |     100 |    83.33 |     100 |     100 | 57-60                  
-  Metroline.jsx      |      90 |    77.77 |    90.9 |    90.9 | 23-24                  
-  MyCardA.jsx        |     100 |      100 |     100 |     100 |                        
-  MyCardB.jsx        |     100 |      100 |     100 |     100 |                        
-  MyCards.jsx        |     100 |    83.33 |     100 |     100 | 33,67                  
-  Navbar.jsx         |     100 |      100 |     100 |     100 |                        
-  ProtectedRoute.jsx |     100 |      100 |     100 |     100 |                        
-  Register.jsx       |     100 |    94.44 |     100 |     100 | 75                     
-  Sidebar.jsx        |     100 |       50 |     100 |     100 | 14-34                  
-  TapGate.jsx        |   66.07 |    60.86 |   68.42 |   68.62 | 47,55,86,90-109,184,210
----------------------|---------|----------|---------|---------|-------------------------
-Test Suites: 5 failed, 7 passed, 12 total
-Tests:       12 failed, 50 passed, 62 total
+  ● BuyCard Component › popup close button works
+
+    Unable to fire a "click" event - please provide a DOM element.
+
+      194 |
+      195 |     const closeBtn = document.querySelector(".modal-close-btn");
+    > 196 |     fireEvent.click(closeBtn);
+          |               ^
+      197 |
+      198 |     expect(
+      199 |         screen.queryByText(/Purchase Blocked/i)
+
+      at createEvent (node_modules/@testing-library/dom/dist/events.js:27:11)
+      at createEvent.<computed> [as click] (node_modules/@testing-library/dom/dist/events.js:106:38)
+      at fireEvent.<computed> [as click] (node_modules/@testing-library/dom/dist/events.js:110:68)
+      at fireEvent.click (node_modules/@testing-library/react/dist/fire-event.js:15:52)
+      at Object.<anonymous> (src/__tests__/BuyCard.test.jsx:196:15)
+
+---------------------|---------|----------|---------|---------|-----------------------------
+File                 | % Stmts | % Branch | % Funcs | % Lines | Uncovered Line #s           
+---------------------|---------|----------|---------|---------|-----------------------------
+All files            |   93.41 |    81.14 |   88.15 |   94.93 |                             
+ src                 |     100 |      100 |     100 |     100 |                             
+  App.js             |     100 |      100 |     100 |     100 |                             
+ src/components      |   93.38 |    81.14 |      88 |   94.91 |                             
+  BuyCard.jsx        |   83.05 |    72.91 |   71.42 |   85.18 | 37,54,82-87,148,192,219-260
+  Login.jsx          |     100 |    83.33 |     100 |     100 | 57-60                      
+  Metroline.jsx      |   86.66 |    77.77 |   81.81 |    90.9 | 23-24                      
+  MyCardA.jsx        |     100 |      100 |     100 |     100 |                            
+  MyCardB.jsx        |     100 |      100 |     100 |     100 |                            
+  MyCards.jsx        |     100 |    83.33 |     100 |     100 | 33,67                      
+  Navbar.jsx         |     100 |      100 |     100 |     100 |                            
+  ProtectedRoute.jsx |     100 |      100 |     100 |     100 |                            
+  Register.jsx       |     100 |    94.44 |     100 |     100 | 75                         
+  Sidebar.jsx        |     100 |       50 |     100 |     100 | 14-34                      
+  TapGate.jsx        |   94.64 |     82.6 |   94.73 |   96.07 | 86,210                     
+---------------------|---------|----------|---------|---------|-----------------------------
+Test Suites: 2 failed, 10 passed, 12 total
+Tests:       5 failed, 56 passed, 61 total
 Snapshots:   0 total
-Time:        7.924 s
+Time:        11.57 s
 Ran all test suites related to changed files.
 
 Watch Usage
